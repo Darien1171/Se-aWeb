@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin.master.cs" Inherits="SeñaWeb.Vista.admin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SeñaWeb.Vista.Admin.Admin" %>
 
 <!DOCTYPE html>
 
