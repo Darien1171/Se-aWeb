@@ -12,5 +12,6 @@ namespace SeñaWeb.Entidad
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
+        public int idRol {  get; set; }
     }
 }

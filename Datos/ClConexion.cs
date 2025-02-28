@@ -12,7 +12,7 @@ namespace SeñaWeb.Datos
 
         public ClConexion()
         {
-            conex = new SqlConnection("Data Source=.;Initial Catalog=dbSeñas11;Integrated Security=True;Trust");
+            conex = new SqlConnection("Data Source=.;Initial Catalog=dbSeñas11;Integrated Security=True;");
         }
 
         public SqlConnection MtdAbrirConexion()

@@ -1,20 +1,115 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SeñaWeb.Vista.Admin.Admin" %>
 
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <meta charset="utf-8" />
+    <title>Iminwe - Panel de Administración</title>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="StyleAdmin.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="btn btn-link text-white" id="toggleSidebarBtn">
+                    <i class="bi bi-list"></i>
+                </button>
+                <a class="navbar-brand" href="DashboardAdmin.aspx">
+                    <span class="brand-text">Iminwe</span>
+                    <span class="brand-subtitle">Panel de Administración</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Administración</span>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="DashboardAdmin.aspx">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="RegistrarModulo.aspx">
+                            <i class="bi bi-collection-fill"></i>
+                            <span>Registrar Módulo</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="RegistrarTipoSena.aspx">
+                            <i class="bi bi-bookmark-star-fill"></i>
+                            <span>Registrar Tipo de Seña</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="RegistrarSena.aspx">
+                            <i class="bi bi-camera-video-fill"></i>
+                            <span>Registrar Seña</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-footer mt-4">
+                    <button type="button" class="btnCerrar" onclick="location.href='<%= ResolveUrl("~/Login.aspx") %>'">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div id="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('toggleSidebarBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
+        });
+
+        // Marcar el elemento activo según la URL actual
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Si estamos en la página principal/dashboard
+            if (currentPage === '' || currentPage === 'DashboardAdmin.aspx') {
+                document.querySelector('a[href="DashboardAdmin.aspx"]').classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>
