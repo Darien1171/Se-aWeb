@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -62,11 +65,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Index.aspx" />
+    <Content Include="Vista\imagenes\Señas1.jpg" />
+    <Content Include="Vista\imagenes\SobreNosotros.jpg" />
+    <Content Include="Vista\imagenes\SobreNosotros.png" />
+    <Content Include="Vista\imagenes\SobreNosotros2.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\about.html" />
     <Content Include="Vista\kidkinder-1.0.0\blog.html" />
     <Content Include="Vista\kidkinder-1.0.0\class.html" />
@@ -149,6 +152,13 @@
     <Compile Include="Datos\ClConexion.cs" />
     <Compile Include="Datos\ClUsuarioD.cs" />
     <Compile Include="Entidad\ClUsuarioE.cs" />
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Logica\ClUsuarioL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vista\Admin\Admin.Master.cs">
@@ -173,7 +183,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.ttf" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.woff" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.woff2" />
@@ -275,6 +284,7 @@
     <Content Include="Vista\kidkinder-1.0.0\scss\style.scss" />
     <Content Include="Vista\Admin\Admin.Master" />
     <Content Include="Vista\Usuario\Usuario.Master" />
+    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
