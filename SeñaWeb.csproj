@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vista\Admin\DashboardAdmin.aspx" />
+    <Content Include="Vista\Admin\RegistrarModulo.aspx" />
     <Content Include="Vista\Admin\StyleAdmin.css" />
     <Content Include="Vista\kidkinder-1.0.0\about.html" />
     <Content Include="Vista\kidkinder-1.0.0\blog.html" />
@@ -175,6 +176,13 @@
     </Compile>
     <Compile Include="Vista\Admin\DashboardAdmin.aspx.designer.cs">
       <DependentUpon>DashboardAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarModulo.aspx.cs">
+      <DependentUpon>RegistrarModulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarModulo.aspx.designer.cs">
+      <DependentUpon>RegistrarModulo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
