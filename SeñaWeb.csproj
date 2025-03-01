@@ -67,8 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Videos\Beber-20250228232348-ff4056ad.mp4" />
+    <Content Include="Videos\Comer-20250228232037-55ce008f.mp4" />
     <Content Include="Vista\Admin\DashboardAdmin.aspx" />
     <Content Include="Vista\Admin\RegistrarModulo.aspx" />
+    <Content Include="Vista\Admin\RegistrarSeña.aspx" />
+    <Content Include="Vista\Admin\RegistrarTipoSeña.aspx" />
     <Content Include="Vista\Admin\StyleAdmin.css" />
     <Content Include="Vista\kidkinder-1.0.0\about.html" />
     <Content Include="Vista\kidkinder-1.0.0\blog.html" />
@@ -183,6 +187,20 @@
     </Compile>
     <Compile Include="Vista\Admin\RegistrarModulo.aspx.designer.cs">
       <DependentUpon>RegistrarModulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarSeña.aspx.cs">
+      <DependentUpon>RegistrarSeña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarSeña.aspx.designer.cs">
+      <DependentUpon>RegistrarSeña.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarTipoSeña.aspx.cs">
+      <DependentUpon>RegistrarTipoSeña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarTipoSeña.aspx.designer.cs">
+      <DependentUpon>RegistrarTipoSeña.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

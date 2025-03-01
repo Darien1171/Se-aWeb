@@ -51,14 +51,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Admin/RegistrarTipoSena.aspx") %>'>
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Admin/RegistrarTipoSeña.aspx") %>'>
                             <i class="bi bi-bookmark-star-fill"></i>
                             <span>Registrar Tipo de Seña</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Admin/RegistrarSena.aspx") %>'>
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Admin/RegistrarSeña.aspx") %>'>
                             <i class="bi bi-camera-video-fill"></i>
                             <span>Registrar Seña</span>
                         </a>
