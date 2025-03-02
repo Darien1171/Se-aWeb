@@ -43,7 +43,7 @@ namespace SeñaWeb.Vista
                     Response.Redirect("~/Vista/admin/DashboardAdmin.aspx");
                     break;
                 case 2:
-                    Response.Redirect("~/Vista/usuario/DashboardUsuario.");
+                    Response.Redirect("~/Vista/usuario/DashboardUsuario.aspx");
                     break;
                 default:
                     Response.Write("<script>alert('Rol no reconocido');</script>");

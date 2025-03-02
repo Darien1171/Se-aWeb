@@ -145,15 +145,19 @@
     <Content Include="Vista\kidkinder-1.0.0\mail\contact.js" />
     <Content Include="Vista\kidkinder-1.0.0\mail\jqBootstrapValidation.min.js" />
     <Content Include="Vista\Login.aspx" />
+    <Content Include="Vista\Usuario\DashboardUsuario.aspx" />
+    <Content Include="Vista\Usuario\StyleUsuario.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\ClConexion.cs" />
     <Compile Include="Datos\ClModuloD.cs" />
+    <Compile Include="Datos\ClProgresoD.cs" />
     <Compile Include="Datos\ClSeñaD.cs" />
     <Compile Include="Datos\ClTipoSeñaD.cs" />
     <Compile Include="Datos\ClUsuarioD.cs" />
     <Compile Include="Entidad\ClModuloE.cs" />
+    <Compile Include="Entidad\ClProgresoE.cs" />
     <Compile Include="Entidad\ClSeñaE.cs" />
     <Compile Include="Entidad\ClTipoSeñaE.cs" />
     <Compile Include="Entidad\ClUsuarioE.cs" />
@@ -165,6 +169,7 @@
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Logica\ClModuloL.cs" />
+    <Compile Include="Logica\ClProgresoL.cs" />
     <Compile Include="Logica\ClSeñaL.cs" />
     <Compile Include="Logica\ClTipoSeñaL.cs" />
     <Compile Include="Logica\ClUsuarioL.cs" />
@@ -210,6 +215,13 @@
     </Compile>
     <Compile Include="Vista\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Usuario\DashboardUsuario.aspx.cs">
+      <DependentUpon>DashboardUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Usuario\DashboardUsuario.aspx.designer.cs">
+      <DependentUpon>DashboardUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Usuario\Usuario.Master.cs">
       <DependentUpon>Usuario.Master</DependentUpon>

@@ -67,6 +67,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Tabla de tipos de seña recientes (MOVIDA AQUÍ) -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold">Tipos de Seña Recientes</h6>
+                    </div>
+                    <div class="card-body">
+                        <asp:GridView ID="gvTiposSenaRecientes" runat="server" 
+                            CssClass="table table-hover table-sm" 
+                            AutoGenerateColumns="false"
+                            EmptyDataText="No hay tipos de seña registrados recientemente"
+                            GridLines="None">
+                            <Columns>
+                                <asp:BoundField DataField="tipo" HeaderText="Nombre" />
+                                <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
+                                <asp:BoundField DataField="nombreModulo" HeaderText="Módulo" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
             </div>
 
             <!-- Panel lateral de ayuda -->
@@ -89,26 +109,6 @@
                             <i class="bi bi-info-circle me-2"></i>
                             Seleccione primero el módulo al que pertenecerá este tipo de seña, luego especifique un nombre claro y una descripción detallada.
                         </p>
-                    </div>
-                </div>
-
-                <!-- Tabla de tipos de seña recientes -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold">Tipos de Seña Recientes</h6>
-                    </div>
-                    <div class="card-body">
-                        <asp:GridView ID="gvTiposSenaRecientes" runat="server" 
-                            CssClass="table table-hover table-sm" 
-                            AutoGenerateColumns="false"
-                            EmptyDataText="No hay tipos de seña registrados recientemente"
-                            GridLines="None">
-                            <Columns>
-                                <asp:BoundField DataField="tipo" HeaderText="Nombre" />
-                                <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
-                                <asp:BoundField DataField="nombreModulo" HeaderText="Módulo" />
-                            </Columns>
-                        </asp:GridView>
                     </div>
                 </div>
             </div>
