@@ -43,9 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -65,11 +62,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Index.aspx" />
-    <Content Include="Vista\imagenes\Señas1.jpg" />
-    <Content Include="Vista\imagenes\SobreNosotros.jpg" />
-    <Content Include="Vista\imagenes\SobreNosotros.png" />
-    <Content Include="Vista\imagenes\SobreNosotros2.jpg" />
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Videos\Beber-20250228232348-ff4056ad.mp4" />
+    <Content Include="Videos\Comer-20250228232037-55ce008f.mp4" />
+    <Content Include="Vista\Admin\DashboardAdmin.aspx" />
+    <Content Include="Vista\Admin\RegistrarModulo.aspx" />
+    <Content Include="Vista\Admin\RegistrarSeña.aspx" />
+    <Content Include="Vista\Admin\RegistrarTipoSeña.aspx" />
+    <Content Include="Vista\Admin\StyleAdmin.css" />
     <Content Include="Vista\kidkinder-1.0.0\about.html" />
     <Content Include="Vista\kidkinder-1.0.0\blog.html" />
     <Content Include="Vista\kidkinder-1.0.0\class.html" />
@@ -150,15 +154,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\ClConexion.cs" />
+    <Compile Include="Datos\ClModuloD.cs" />
+    <Compile Include="Datos\ClSeñaD.cs" />
+    <Compile Include="Datos\ClTipoSeñaD.cs" />
     <Compile Include="Datos\ClUsuarioD.cs" />
+    <Compile Include="Entidad\ClModuloE.cs" />
+    <Compile Include="Entidad\ClSeñaE.cs" />
+    <Compile Include="Entidad\ClTipoSeñaE.cs" />
     <Compile Include="Entidad\ClUsuarioE.cs" />
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Logica\ClModuloL.cs" />
+    <Compile Include="Logica\ClSeñaL.cs" />
+    <Compile Include="Logica\ClTipoSeñaL.cs" />
     <Compile Include="Logica\ClUsuarioL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vista\Admin\Admin.Master.cs">
@@ -167,6 +173,34 @@
     </Compile>
     <Compile Include="Vista\Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\DashboardAdmin.aspx.cs">
+      <DependentUpon>DashboardAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\DashboardAdmin.aspx.designer.cs">
+      <DependentUpon>DashboardAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarModulo.aspx.cs">
+      <DependentUpon>RegistrarModulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarModulo.aspx.designer.cs">
+      <DependentUpon>RegistrarModulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarSeña.aspx.cs">
+      <DependentUpon>RegistrarSeña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarSeña.aspx.designer.cs">
+      <DependentUpon>RegistrarSeña.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarTipoSeña.aspx.cs">
+      <DependentUpon>RegistrarTipoSeña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Admin\RegistrarTipoSeña.aspx.designer.cs">
+      <DependentUpon>RegistrarTipoSeña.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -177,12 +211,14 @@
     </Compile>
     <Compile Include="Vista\Usuario\Usuario.Master.cs">
       <DependentUpon>Usuario.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Vista\Usuario\Usuario.Master.designer.cs">
       <DependentUpon>Usuario.Master</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.ttf" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.woff" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\Flaticon.woff2" />
@@ -284,7 +320,6 @@
     <Content Include="Vista\kidkinder-1.0.0\scss\style.scss" />
     <Content Include="Vista\Admin\Admin.Master" />
     <Content Include="Vista\Usuario\Usuario.Master" />
-    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
