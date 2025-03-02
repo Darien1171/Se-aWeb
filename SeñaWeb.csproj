@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Index.aspx" />
     <Content Include="Videos\Beber-20250228232348-ff4056ad.mp4" />
     <Content Include="Videos\Comer-20250228232037-55ce008f.mp4" />
     <Content Include="Vista\Admin\DashboardAdmin.aspx" />
@@ -74,13 +75,13 @@
     <Content Include="Vista\Admin\RegistrarSeña.aspx" />
     <Content Include="Vista\Admin\RegistrarTipoSeña.aspx" />
     <Content Include="Vista\Admin\StyleAdmin.css" />
+    <Content Include="Vista\imagenes\Señas1.jpg" />
+    <Content Include="Vista\imagenes\SobreNosotros.jpg" />
+    <Content Include="Vista\imagenes\SobreNosotros.png" />
+    <Content Include="Vista\imagenes\SobreNosotros2.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\about.html" />
-    <Content Include="Vista\kidkinder-1.0.0\blog.html" />
-    <Content Include="Vista\kidkinder-1.0.0\class.html" />
-    <Content Include="Vista\kidkinder-1.0.0\contact.html" />
     <Content Include="Vista\kidkinder-1.0.0\css\style.css" />
     <Content Include="Vista\kidkinder-1.0.0\css\style.min.css" />
-    <Content Include="Vista\kidkinder-1.0.0\gallery.html" />
     <Content Include="Vista\kidkinder-1.0.0\img\about-1.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\img\about-2.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\img\blog-1.jpg" />
@@ -109,9 +110,7 @@
     <Content Include="Vista\kidkinder-1.0.0\img\testimonial-3.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\img\testimonial-4.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\img\user.jpg" />
-    <Content Include="Vista\kidkinder-1.0.0\index.html" />
     <Content Include="Vista\kidkinder-1.0.0\js\main.js" />
-    <Content Include="Vista\kidkinder-1.0.0\kindergarten-website-template.jpg" />
     <Content Include="Vista\kidkinder-1.0.0\lib\easing\easing.js" />
     <Content Include="Vista\kidkinder-1.0.0\lib\easing\easing.min.js" />
     <Content Include="Vista\kidkinder-1.0.0\lib\flaticon\font\flaticon.css" />
@@ -143,12 +142,8 @@
     <Content Include="Vista\kidkinder-1.0.0\lib\tempusdominus\js\moment.min.js" />
     <Content Include="Vista\kidkinder-1.0.0\lib\tempusdominus\js\tempusdominus-bootstrap-4.js" />
     <Content Include="Vista\kidkinder-1.0.0\lib\tempusdominus\js\tempusdominus-bootstrap-4.min.js" />
-    <Content Include="Vista\kidkinder-1.0.0\LICENSE.txt" />
     <Content Include="Vista\kidkinder-1.0.0\mail\contact.js" />
     <Content Include="Vista\kidkinder-1.0.0\mail\jqBootstrapValidation.min.js" />
-    <Content Include="Vista\kidkinder-1.0.0\READ-ME.txt" />
-    <Content Include="Vista\kidkinder-1.0.0\single.html" />
-    <Content Include="Vista\kidkinder-1.0.0\team.html" />
     <Content Include="Vista\Login.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -162,6 +157,13 @@
     <Compile Include="Entidad\ClSeñaE.cs" />
     <Compile Include="Entidad\ClTipoSeñaE.cs" />
     <Compile Include="Entidad\ClUsuarioE.cs" />
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Logica\ClModuloL.cs" />
     <Compile Include="Logica\ClSeñaL.cs" />
     <Compile Include="Logica\ClTipoSeñaL.cs" />
