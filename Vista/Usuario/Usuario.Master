@@ -1,20 +1,105 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Usuario.master.cs" Inherits="SeñaWeb.Vista.Usuario.Usuario" %>
 
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <meta charset="utf-8" />
+    <title>Iminwe - Plataforma de Aprendizaje</title>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="StyleUsuario.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="btn btn-link text-white" id="toggleSidebarBtn">
+                    <i class="bi bi-list"></i>
+                </button>
+                <a class="navbar-brand" href='<%= ResolveUrl("~/Vista/Usuario/DashboardUsuario.aspx") %>'>
+                    <span class="brand-text">Iminwe</span>
+                    <span class="brand-subtitle">Plataforma de Aprendizaje</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Mi Aprendizaje</span>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/DashboardUsuario.aspx") %>'>
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Mi Progreso</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Modulos.aspx") %>'>
+                            <i class="bi bi-collection-fill"></i>
+                            <span>Módulos</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Señas.aspx") %>'>
+                            <i class="bi bi-camera-video-fill"></i>
+                            <span>Biblioteca de Señas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Evaluaciones.aspx") %>'>
+                            <i class="bi bi-clipboard-check-fill"></i>
+                            <span>Mis Evaluaciones</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Perfil.aspx") %>'>
+                            <i class="bi bi-person-badge-fill"></i>
+                            <span>Mi Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-footer mt-4">
+                    <button type="button" class="btnCerrar" onclick="location.href='<%= ResolveUrl("~/Vista/Login.aspx") %>'">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div id="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Solo mantenemos el JavaScript relacionado con la sidebar
+        document.getElementById('toggleSidebarBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
+        });
+    </script>
 </body>
 </html>
