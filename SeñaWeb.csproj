@@ -145,6 +145,7 @@
     <Content Include="Vista\kidkinder-1.0.0\mail\contact.js" />
     <Content Include="Vista\kidkinder-1.0.0\mail\jqBootstrapValidation.min.js" />
     <Content Include="Vista\Login.aspx" />
+    <Content Include="Vista\Usuario\BibliotecaSeñas.aspx" />
     <Content Include="Vista\Usuario\DashboardUsuario.aspx" />
     <Content Include="Vista\Usuario\StyleUsuario.css" />
     <Content Include="Web.config" />
@@ -215,6 +216,13 @@
     </Compile>
     <Compile Include="Vista\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Usuario\BibliotecaSeñas.aspx.cs">
+      <DependentUpon>BibliotecaSeñas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Usuario\BibliotecaSeñas.aspx.designer.cs">
+      <DependentUpon>BibliotecaSeñas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Usuario\DashboardUsuario.aspx.cs">
       <DependentUpon>DashboardUsuario.aspx</DependentUpon>

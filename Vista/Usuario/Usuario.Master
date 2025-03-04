@@ -42,16 +42,9 @@
                             <span>Mi Progreso</span>
                         </a>
                     </li>
-
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Modulos.aspx") %>'>
-                            <i class="bi bi-collection-fill"></i>
-                            <span>Módulos</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Señas.aspx") %>'>
+                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/BibliotecaSeñas.aspx") %>'>
                             <i class="bi bi-camera-video-fill"></i>
                             <span>Biblioteca de Señas</span>
                         </a>
