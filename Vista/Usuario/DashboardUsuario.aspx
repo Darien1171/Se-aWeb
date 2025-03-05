@@ -1,10 +1,58 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Vista/Usuario/Usuario.Master" AutoEventWireup="true" CodeBehind="DashboardUsuario.aspx.cs" Inherits="SeñaWeb.Vista.Usuario.DashboardUsuario" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        /* Estilos para las tarjetas de progreso */
+        .progress-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        
+        .progress-card h5 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-card .bi {
+            font-size: 1.2rem;
+        }
+        
+        .module-card h5 .bi {
+            color: #003A59;
+        }
+        
+        .signs-card h5 .bi {
+            color: #D42374;
+        }
+        
+        .eval-card h5 .bi {
+            color: #28a745;
+        }
+        
+        .progress-stats {
+            margin-top: auto;
+        }
+        
+        .stat-box {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
+        <!-- Control HiddenField para almacenar el progreso general -->
+        <asp:HiddenField ID="hdnProgresoGeneral" runat="server" Value="0" />
+        
         <!-- Sección de bienvenida -->
         <div class="welcome-section mb-5 text-center">
             <h1 class="welcome-title">¡Bienvenido,
@@ -17,7 +65,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <!-- Módulos -->
             <div class="col">
-                <div class="progress-card module-card">
+                <div class="progress-card module-card h-100">
                     <h5><i class="bi bi-collection"></i>Módulos Completados</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
@@ -34,7 +82,7 @@
 
             <!-- Señas -->
             <div class="col">
-                <div class="progress-card signs-card">
+                <div class="progress-card signs-card h-100">
                     <h5><i class="bi bi-camera-video"></i>Señas Aprendidas</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
@@ -51,12 +99,36 @@
 
             <!-- Evaluación -->
             <div class="col">
-                <div class="progress-card eval-card" style="min-height: 100%;">
+                <div class="progress-card eval-card h-100">
                     <h5><i class="bi bi-award"></i>Progreso General</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
                             <asp:Label ID="lblPuntajeGeneral" runat="server" CssClass="position-absolute top-50 start-50 translate-middle fs-4 fw-bold" Text="0%"></asp:Label>
                             <canvas id="progresoGeneralChart" width="120" height="120"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalles de progreso adicionales -->
+                    <div class="progress-stats text-center mb-3">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div class="stat-box border rounded p-2">
+                                    <i class="bi bi-calendar-check text-success"></i>
+                                    <div class="stat-title small">Última sesión</div>
+                                    <div class="stat-value">
+                                        <asp:Label ID="lblUltimaSesion" runat="server" Text="Hoy"></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-box border rounded p-2">
+                                    <i class="bi bi-lightning-charge text-warning"></i>
+                                    <div class="stat-title small">Racha actual</div>
+                                    <div class="stat-value">
+                                        <asp:Label ID="lblRachaActual" runat="server" Text="0 días"></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,7 +231,7 @@
 
             // Gráfica de Módulos
             const modulosCtx = document.getElementById('modulosChart');
-            const modulosProgress = <%= hdnProgresoGeneral.Value %>;
+            const modulosProgress = parseInt('<%= hdnProgresoGeneral.Value %>');
 
             new Chart(modulosCtx, {
                 type: 'doughnut',
@@ -187,7 +259,7 @@
 
             // Gráfica de Señas
             const senasCtx = document.getElementById('senasChart');
-            const senasProgress = <%= hdnProgresoGeneral.Value %>;
+            const senasProgress = parseInt('<%= hdnProgresoGeneral.Value %>');
 
             new Chart(senasCtx, {
                 type: 'doughnut',
@@ -215,7 +287,7 @@
 
             // Gráfica de Progreso General
             const progresoCtx = document.getElementById('progresoGeneralChart');
-            const progresoGeneral = <%= hdnProgresoGeneral.Value %>;
+            const progresoGeneral = parseInt('<%= hdnProgresoGeneral.Value %>');
 
             new Chart(progresoCtx, {
                 type: 'doughnut',

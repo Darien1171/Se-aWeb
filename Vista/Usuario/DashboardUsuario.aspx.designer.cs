@@ -15,6 +15,15 @@ namespace SeñaWeb.Vista.Usuario
     {
 
         /// <summary>
+        /// Control hdnProgresoGeneral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnProgresoGeneral;
+
+        /// <summary>
         /// Control lblUserName.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,24 @@ namespace SeñaWeb.Vista.Usuario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPuntajeGeneral;
+
+        /// <summary>
+        /// Control lblUltimaSesion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUltimaSesion;
+
+        /// <summary>
+        /// Control lblRachaActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRachaActual;
 
         /// <summary>
         /// Control lvModulosRecientes.

@@ -37,6 +37,9 @@ namespace SeñaWeb.Vista.Usuario
 
                 // Cargar señas recientes vistas
                 CargarSenasRecientes(idUsuario);
+
+                // Cargar información adicional para la tarjeta de progreso mejorada
+                CargarInfoProgresoAdicional(idUsuario);
             }
         }
 
@@ -100,6 +103,38 @@ namespace SeñaWeb.Vista.Usuario
             }
         }
 
+        private void CargarInfoProgresoAdicional(int idUsuario)
+        {
+            try
+            {
+                // Esta función añadiría datos reales para los nuevos elementos de la tarjeta de progreso general
+                // En una implementación real, estos datos vendrían de la base de datos
+
+                // Ejemplo: Obtener la última sesión del usuario
+                DateTime ultimaSesion = DateTime.Now;
+                if (ultimaSesion.Date == DateTime.Now.Date)
+                {
+                    lblUltimaSesion.Text = "Hoy";
+                }
+                else
+                {
+                    lblUltimaSesion.Text = ultimaSesion.ToString("dd/MM/yyyy");
+                }
+
+                // Ejemplo: Obtener la racha del usuario
+                int rachaActual = 1; // En una implementación real, se obtendría de la BD
+                lblRachaActual.Text = $"{rachaActual} {(rachaActual == 1 ? "día" : "días")}";
+
+                // Mantener solo el código para las estadísticas de actividad
+                // Se han eliminado las secciones de "Siguiente objetivo" y "Mensaje motivacional"
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en CargarInfoProgresoAdicional: " + ex.Message);
+                // Mantener valores predeterminados en caso de error
+            }
+        }
+
         public bool ConvertToBoolean(object value)
         {
             if (value == null || value == DBNull.Value)
@@ -114,8 +149,6 @@ namespace SeñaWeb.Vista.Usuario
             string strValue = value.ToString().ToLower();
             return strValue == "true" || strValue == "1" || strValue == "yes" || strValue == "sí";
         }
-
-      
 
         private void CargarModulosRecientes(int idUsuario)
         {
