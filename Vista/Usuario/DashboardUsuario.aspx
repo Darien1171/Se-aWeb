@@ -7,17 +7,18 @@
     <div class="container-fluid">
         <!-- Sección de bienvenida -->
         <div class="welcome-section mb-5 text-center">
-            <h1 class="welcome-title">¡Bienvenido, <asp:Label ID="lblUserName" runat="server" Text="Estudiante" />!</h1>
+            <h1 class="welcome-title">¡Bienvenido,
+                <asp:Label ID="lblUserName" runat="server" Text="Estudiante" />!</h1>
             <p class="welcome-subtitle">Plataforma de aprendizaje de lenguaje de señas</p>
             <div class="welcome-divider mx-auto"></div>
         </div>
-        
+
         <!-- Tarjetas de progreso -->
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <!-- Módulos -->
             <div class="col">
                 <div class="progress-card module-card">
-                    <h5><i class="bi bi-collection"></i> Módulos Completados</h5>
+                    <h5><i class="bi bi-collection"></i>Módulos Completados</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
                             <asp:Label ID="lblModulosProgress" runat="server" CssClass="position-absolute top-50 start-50 translate-middle fs-4 fw-bold" Text="0%"></asp:Label>
@@ -30,11 +31,11 @@
                     <a href="Modulos.aspx" class="btn btn-sm btn-primary w-100 mt-2">Ver módulos</a>
                 </div>
             </div>
-            
+
             <!-- Señas -->
             <div class="col">
                 <div class="progress-card signs-card">
-                    <h5><i class="bi bi-camera-video"></i> Señas Aprendidas</h5>
+                    <h5><i class="bi bi-camera-video"></i>Señas Aprendidas</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
                             <asp:Label ID="lblSenasProgress" runat="server" CssClass="position-absolute top-50 start-50 translate-middle fs-4 fw-bold" Text="0%"></asp:Label>
@@ -47,26 +48,21 @@
                     <a href="Señas.aspx" class="btn btn-sm btn-primary w-100 mt-2">Ver biblioteca de señas</a>
                 </div>
             </div>
-            
+
             <!-- Evaluación -->
             <div class="col">
                 <div class="progress-card eval-card" style="min-height: 100%;">
-                    <h5><i class="bi bi-award"></i> Progreso General</h5>
+                    <h5><i class="bi bi-award"></i>Progreso General</h5>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div class="position-relative" style="width: 120px; height: 120px;">
                             <asp:Label ID="lblPuntajeGeneral" runat="server" CssClass="position-absolute top-50 start-50 translate-middle fs-4 fw-bold" Text="0%"></asp:Label>
                             <canvas id="progresoGeneralChart" width="120" height="120"></canvas>
                         </div>
                     </div>
-                    <p class="text-center">
-                        <asp:Label ID="lblUltimaEvaluacion" runat="server" Text="Sin evaluaciones completadas"></asp:Label>
-                    </p>
-                    <a href="Evaluaciones.aspx" class="btn btn-sm btn-primary w-100 mt-2">Ver evaluaciones</a>
-                    <asp:HiddenField ID="hdnProgresoGeneral" runat="server" Value="0" />
                 </div>
             </div>
         </div>
-        
+
         <!-- Últimos módulos estudiados -->
         <div class="row mb-4">
             <div class="col-12">
@@ -108,7 +104,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Señas recientemente practicadas -->
         <div class="row">
             <div class="col-12">
@@ -138,8 +134,8 @@
                                         <small class="text-muted"><%# Eval("tipoSeña") %> | <%# Eval("fechaVisto", "{0:dd/MM/yyyy}") %></small>
                                     </div>
                                     <div class="ms-auto">
-                                        <span class="badge rounded-pill <%# Convert.ToBoolean(Eval("estado")) ? "bg-success" : "bg-warning text-dark" %>">
-                                            <%# Convert.ToBoolean(Eval("estado")) ? "Visto" : "Pendiente" %>
+                                        <span class="badge rounded-pill <%# ConvertToBoolean(Eval("estado")) ? "bg-success" : "bg-warning text-dark" %>">
+                                            <%# ConvertToBoolean(Eval("estado")) ? "Visto" : "Pendiente" %>
                                         </span>
                                         <a href='<%# "SeñaDetalle.aspx?id=" + Eval("idSeña") %>' class="btn btn-sm btn-outline-primary ms-2">Ver</a>
                                     </div>
@@ -151,7 +147,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Scripts para las gráficas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -160,11 +156,11 @@
             const moduleColor = '#003A59';
             const senasColor = '#D42374';
             const progresoColor = '#28a745';
-            
+
             // Gráfica de Módulos
             const modulosCtx = document.getElementById('modulosChart');
             const modulosProgress = <%= hdnProgresoGeneral.Value %>;
-            
+
             new Chart(modulosCtx, {
                 type: 'doughnut',
                 data: {
@@ -188,11 +184,11 @@
                     }
                 }
             });
-            
+
             // Gráfica de Señas
             const senasCtx = document.getElementById('senasChart');
             const senasProgress = <%= hdnProgresoGeneral.Value %>;
-            
+
             new Chart(senasCtx, {
                 type: 'doughnut',
                 data: {
@@ -216,7 +212,7 @@
                     }
                 }
             });
-            
+
             // Gráfica de Progreso General
             const progresoCtx = document.getElementById('progresoGeneralChart');
             const progresoGeneral = <%= hdnProgresoGeneral.Value %>;

@@ -75,5 +75,31 @@ namespace SeñaWeb.Logica
                 throw;
             }
         }
+
+        public DataTable MtdObtenerDetalleSena(int idSena, int idUsuario)
+        {
+            try
+            {
+                // Validaciones
+                if (idSena <= 0)
+                {
+                    throw new ArgumentException("El ID de la seña no es válido.");
+                }
+
+                if (idUsuario <= 0)
+                {
+                    throw new ArgumentException("El ID del usuario no es válido.");
+                }
+
+                // Llamar a la capa de datos
+                ClSeñaD datosSena = new ClSeñaD();
+                return datosSena.MtdObtenerDetalleSena(idSena, idUsuario);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en MtdObtenerDetalleSena (Lógica): " + ex.Message);
+                throw; // Re-lanzar para manejo en capa superior
+            }
+        }
     }
 }

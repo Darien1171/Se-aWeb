@@ -9,54 +9,54 @@
             cursor: pointer;
             border-left: 5px solid transparent;
         }
-        
-        .modulo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .modulo-card.active {
-            border-left: 5px solid var(--magenta);
-            background-color: rgba(212, 35, 116, 0.05);
-        }
-        
+
+            .modulo-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .modulo-card.active {
+                border-left: 5px solid var(--magenta);
+                background-color: rgba(212, 35, 116, 0.05);
+            }
+
         .modulo-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .senas-container {
             min-height: 200px;
             transition: all 0.3s ease;
         }
-        
+
         .sena-card {
             height: 100%;
             transition: all 0.3s ease;
             border: 1px solid #e0e0e0;
         }
-        
-        .sena-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
+
+            .sena-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
         .sena-header {
             background-color: #f8f9fa;
             padding: 10px 15px;
             border-bottom: 1px solid #e0e0e0;
         }
-        
+
         .sena-visto {
             border-left: 4px solid var(--green);
         }
-        
+
         .empty-state {
             text-align: center;
             padding: 40px 20px;
         }
-        
+
         .filters-container {
             transition: all 0.3s ease;
         }
@@ -66,13 +66,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ScriptManager para habilitar AJAX -->
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
+
     <div class="container-fluid">
         <!-- Sección de encabezado -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Biblioteca de Señas</h1>
         </div>
-        
+
         <!-- Estadísticas y progreso -->
         <div class="row mb-4">
             <div class="col-md-4">
@@ -84,7 +84,8 @@
                                     Módulos completados
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <asp:Label ID="lblModulosCompletados" runat="server" Text="0"></asp:Label> de 
+                                    <asp:Label ID="lblModulosCompletados" runat="server" Text="0"></asp:Label>
+                                    de 
                                     <asp:Label ID="lblTotalModulos" runat="server" Text="0"></asp:Label>
                                 </div>
                             </div>
@@ -95,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
@@ -105,7 +106,8 @@
                                     Señas aprendidas
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <asp:Label ID="lblSenasVistas" runat="server" Text="0"></asp:Label> de 
+                                    <asp:Label ID="lblSenasVistas" runat="server" Text="0"></asp:Label>
+                                    de 
                                     <asp:Label ID="lblTotalSenas" runat="server" Text="0"></asp:Label>
                                 </div>
                             </div>
@@ -116,7 +118,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
@@ -140,7 +142,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Contenedor principal - Grid de dos columnas -->
         <div class="row">
             <!-- Columna de módulos -->
@@ -166,12 +168,12 @@
                                             <span class="badge bg-primary"><%# Eval("porcentajeCompletado") %>%</span>
                                         </div>
                                         <div class="progress my-2" style="height: 6px;">
-                                            <div class="progress-bar" role="progressbar" style="width: <%# Eval("porcentajeCompletado") %>%;" 
+                                            <div class="progress-bar" role="progressbar" style="width: <%# Eval("porcentajeCompletado") %>%;"
                                                 aria-valuenow="<%# Eval("porcentajeCompletado") %>" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                         <small class="text-muted">
-                                            <asp:Literal ID="litSenasInfo" runat="server" 
+                                            <asp:Literal ID="litSenasInfo" runat="server"
                                                 Text='<%# string.Format("{0} tipos de señas", GetCantidadTiposSena(Convert.ToInt32(Eval("idModulo")))) %>'>
                                             </asp:Literal>
                                         </small>
@@ -189,7 +191,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Columna de señas -->
             <div class="col-md-8">
                 <div class="card shadow mb-4">
@@ -198,10 +200,10 @@
                             <asp:Literal ID="litTituloSenas" runat="server" Text="Selecciona un módulo para ver sus señas"></asp:Literal>
                         </h6>
                         <button type="button" class="btn btn-sm btn-outline-primary" id="btnToggleFilters" onclick="toggleFilters()">
-                            <i class="bi bi-funnel"></i> Filtros
+                            <i class="bi bi-funnel"></i>Filtros
                         </button>
                     </div>
-                    
+
                     <!-- Filtros de señas - Inicialmente oculto -->
                     <div class="card-body py-2 filters-container" id="filtersContainer" style="display: none;">
                         <div class="row g-2">
@@ -225,43 +227,44 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card-body senas-container">
                         <asp:Panel ID="pnlSeleccionaModulo" runat="server" CssClass="empty-state" Visible="true">
                             <i class="bi bi-arrow-left-circle fs-1 text-muted mb-3"></i>
                             <h5>Selecciona un módulo</h5>
                             <p class="text-muted">Escoge un módulo de la lista de la izquierda para ver las señas disponibles.</p>
                         </asp:Panel>
-                        
+
                         <asp:UpdatePanel ID="upSenas" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <div class="row" id="senasGrid">
+
                                     <asp:Repeater ID="rptSenas" runat="server" OnItemCommand="rptSenas_ItemCommand">
                                         <ItemTemplate>
                                             <div class="col-md-6 col-lg-4 mb-3">
-                                                <div class="card sena-card <%# Convert.ToBoolean(Eval("estado")) ? "sena-visto" : "" %>">
+                                                <div class="card sena-card <%# ConvertToBoolean(Eval("estado")) ? "sena-visto" : "" %>">
                                                     <div class="sena-header d-flex justify-content-between align-items-center">
                                                         <h6 class="mb-0 text-truncate" title='<%# Eval("nombreSeña") %>'>
                                                             <%# Eval("nombreSeña") %>
                                                         </h6>
-                                                        <span class="badge <%# Convert.ToBoolean(Eval("estado")) ? "bg-success" : "bg-secondary" %>">
-                                                            <%# Convert.ToBoolean(Eval("estado")) ? "Visto" : "Pendiente" %>
+                                                        <span class="badge <%# ConvertToBoolean(Eval("estado")) ? "bg-success" : "bg-secondary" %>">
+                                                            <%# ConvertToBoolean(Eval("estado")) ? "Visto" : "Pendiente" %>
                                                         </span>
                                                     </div>
                                                     <div class="card-body p-3">
                                                         <p class="card-text text-muted small mb-2">
-                                                            <i class="bi bi-tag me-1"></i> <%# Eval("tipoSeña") %>
+                                                            <i class="bi bi-tag me-1"></i><%# Eval("tipoSeña") %>
                                                         </p>
                                                         <div class="d-grid gap-2">
                                                             <a href='<%# "SeñaDetalle.aspx?id=" + Eval("idSeña") %>' class="btn btn-sm btn-primary">
-                                                                <i class="bi bi-play-circle me-1"></i> Ver Video
+                                                                <i class="bi bi-play-circle me-1"></i>Ver Video
                                                             </a>
-                                                            <asp:LinkButton ID="btnMarcarEstado" runat="server" 
-                                                                CommandName='<%# Convert.ToBoolean(Eval("estado")) ? "MarcarPendiente" : "MarcarVisto" %>'
+                                                            <asp:LinkButton ID="btnMarcarEstado" runat="server"
+                                                                CommandName='<%# ConvertToBoolean(Eval("estado")) ? "MarcarPendiente" : "MarcarVisto" %>'
                                                                 CommandArgument='<%# Eval("idSeña") %>'
-                                                                CssClass='<%# Convert.ToBoolean(Eval("estado")) ? "btn btn-sm btn-outline-secondary" : "btn btn-sm btn-outline-success" %>'>
-                                                                <i class='<%# Convert.ToBoolean(Eval("estado")) ? "bi bi-x-circle" : "bi bi-check-circle" %> me-1'></i>
-                                                                <%# Convert.ToBoolean(Eval("estado")) ? "Marcar como pendiente" : "Marcar como visto" %>
+                                                                CssClass='<%# ConvertToBoolean(Eval("estado")) ? "btn btn-sm btn-outline-secondary" : "btn btn-sm btn-outline-success" %>'>
+                            <i class='<%# ConvertToBoolean(Eval("estado")) ? "bi bi-x-circle" : "bi bi-check-circle" %> me-1'></i>
+                            <%# ConvertToBoolean(Eval("estado")) ? "Marcar como pendiente" : "Marcar como visto" %>
                                                             </asp:LinkButton>
                                                         </div>
                                                     </div>
@@ -290,7 +293,7 @@
             </div>
         </div>
     </div>
-    
+
     <script type="text/javascript">
         function toggleFilters() {
             var filtersContainer = document.getElementById('filtersContainer');

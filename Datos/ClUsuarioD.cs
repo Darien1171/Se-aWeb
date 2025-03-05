@@ -56,5 +56,160 @@ namespace SeñaWeb.Datos
             }
         }
 
+
+        // Obtener datos del usuario por ID
+        public ClUsuarioE MtdObtenerUsuarioPorId(int idUsuario)
+        {
+            ClUsuarioE oUsuario = null;
+            ClConexion conexion = new ClConexion();
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    string query = @"
+                SELECT 
+                    u.idUsuario,
+                    u.Nombre,
+                    u.Apellido,
+                    u.Email,
+                    u.idRol,
+                    r.descripcion as RolDescripcion
+                FROM 
+                    usuario u
+                INNER JOIN 
+                    rol r ON u.idRol = r.idRol
+                WHERE 
+                    u.idUsuario = @idUsuario";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conex))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                oUsuario = new ClUsuarioE
+                                {
+                                    idUsuario = Convert.ToInt32(reader["idUsuario"]),
+                                    Nombre = reader["Nombre"].ToString(),
+                                    Apellido = reader["Apellido"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    idRol = Convert.ToInt32(reader["idRol"])
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdObtenerUsuarioPorId: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return oUsuario;
+        }
+
+        // Actualizar datos del usuario
+        public bool MtdActualizarUsuario(ClUsuarioE oUsuario)
+        {
+            ClConexion conexion = new ClConexion();
+            bool resultado = false;
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    string query = @"
+                UPDATE usuario 
+                SET 
+                    Nombre = @Nombre,
+                    Apellido = @Apellido,
+                    Email = @Email
+                WHERE 
+                    idUsuario = @idUsuario";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conex))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@Nombre", oUsuario.Nombre);
+                        cmd.Parameters.AddWithValue("@Apellido", oUsuario.Apellido);
+                        cmd.Parameters.AddWithValue("@Email", oUsuario.Email);
+                        cmd.Parameters.AddWithValue("@idUsuario", oUsuario.idUsuario);
+
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+                        resultado = (filasAfectadas > 0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdActualizarUsuario: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return resultado;
+        }
+
+        // Cambiar contraseña
+        public bool MtdCambiarContrasena(int idUsuario, string contrasenaActual, string nuevaContrasena)
+        {
+            ClConexion conexion = new ClConexion();
+            bool resultado = false;
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    // Primero verificar la contraseña actual
+                    string queryVerificar = "SELECT COUNT(*) FROM usuario WHERE idUsuario = @idUsuario AND Contraseña = @contrasenaActual";
+                    using (SqlCommand cmdVerificar = new SqlCommand(queryVerificar, conex))
+                    {
+                        cmdVerificar.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        cmdVerificar.Parameters.AddWithValue("@contrasenaActual", contrasenaActual);
+
+                        int count = Convert.ToInt32(cmdVerificar.ExecuteScalar());
+                        if (count == 0)
+                        {
+                            return false; // La contraseña actual no coincide
+                        }
+                    }
+
+                    // Si la verificación es exitosa, actualizar la contraseña
+                    string queryActualizar = "UPDATE usuario SET Contraseña = @nuevaContrasena WHERE idUsuario = @idUsuario";
+                    using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conex))
+                    {
+                        cmdActualizar.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        cmdActualizar.Parameters.AddWithValue("@nuevaContrasena", nuevaContrasena);
+
+                        int filasAfectadas = cmdActualizar.ExecuteNonQuery();
+                        resultado = (filasAfectadas > 0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdCambiarContrasena: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return resultado;
+        }
+
     }
 }

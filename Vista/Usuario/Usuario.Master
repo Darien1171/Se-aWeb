@@ -8,6 +8,9 @@
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     <link href="StyleUsuario.css" rel="stylesheet" />
 </head>
 <body>
@@ -42,7 +45,7 @@
                             <span>Mi Progreso</span>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/BibliotecaSeñas.aspx") %>'>
                             <i class="bi bi-camera-video-fill"></i>
@@ -50,13 +53,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Evaluaciones.aspx") %>'>
-                            <i class="bi bi-clipboard-check-fill"></i>
-                            <span>Mis Evaluaciones</span>
-                        </a>
-                    </li>
-                    
                     <li class="nav-item">
                         <a class="nav-link" href='<%= ResolveUrl("~/Vista/Usuario/Perfil.aspx") %>'>
                             <i class="bi bi-person-badge-fill"></i>

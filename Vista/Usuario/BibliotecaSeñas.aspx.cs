@@ -115,28 +115,26 @@ namespace SeñaWeb.Vista.Usuario
                 ClProgresoL logicaProgreso = new ClProgresoL();
                 DataTable dtModulos = logicaProgreso.MtdObtenerModulosConProgreso(idUsuario);
 
+                // Agregar depuración
+                System.Diagnostics.Debug.WriteLine($"Se cargaron {dtModulos.Rows.Count} módulos de la base de datos");
+
+                foreach (DataRow row in dtModulos.Rows)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Módulo: {row["idModulo"]} - {row["nombreModulo"]}");
+                }
+
                 // Aplicar filtro de búsqueda si existe
                 if (!string.IsNullOrEmpty(busqueda))
                 {
                     string filtro = string.Format("nombreModulo LIKE '%{0}%'",
                         busqueda.Replace("'", "''"));
 
-                    DataRow[] filasResultado = dtModulos.Select(filtro);
+                    DataView dv = new DataView(dtModulos);
+                    dv.RowFilter = filtro;
+                    dtModulos = dv.ToTable();
 
-                    if (filasResultado.Length > 0)
-                    {
-                        DataTable dtFiltrado = dtModulos.Clone();
-                        foreach (DataRow row in filasResultado)
-                        {
-                            dtFiltrado.ImportRow(row);
-                        }
-                        dtModulos = dtFiltrado;
-                    }
-                    else
-                    {
-                        // Si no hay resultados, asignar tabla vacía
-                        dtModulos = dtModulos.Clone();
-                    }
+                    // Depuración del filtro
+                    System.Diagnostics.Debug.WriteLine($"Después del filtro: {dtModulos.Rows.Count} módulos");
                 }
 
                 // Precalcular la cantidad de tipos de señas por módulo
@@ -145,10 +143,14 @@ namespace SeñaWeb.Vista.Usuario
                 // Asignar al repeater
                 rptModulos.DataSource = dtModulos;
                 rptModulos.DataBind();
+
+                // Depuración después del databind
+                System.Diagnostics.Debug.WriteLine($"Repeater tiene {rptModulos.Items.Count} items");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error al cargar módulos: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("StackTrace: " + ex.StackTrace);
             }
         }
 
@@ -169,13 +171,30 @@ namespace SeñaWeb.Vista.Usuario
                     DataTable dtTipos = logicaSena.MtdObtenerTiposSenaPorModulo(idModulo);
 
                     // Guardar la cantidad en el diccionario
-                    tiposSenaPorModulo[idModulo] = dtTipos.Rows.Count;
+                    tiposSenaPorModulo[idModulo] = dtTipos != null ? dtTipos.Rows.Count : 0;
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error al cargar tipos de seña por módulo: " + ex.Message);
+                // No lanzar excepción para evitar interrumpir el flujo
             }
+        }
+
+        // Método auxiliar para convertir diferentes formatos a booleano
+        public bool ConvertToBoolean(object value)
+        {
+            if (value == null || value == DBNull.Value)
+                return false;
+
+            if (value is bool)
+                return (bool)value;
+
+            if (value is int || value is byte || value is short)
+                return Convert.ToInt32(value) != 0;
+
+            string strValue = value.ToString().ToLower();
+            return strValue == "true" || strValue == "1" || strValue == "yes" || strValue == "sí";
         }
 
         // Método que será llamado desde el archivo ASPX para obtener la cantidad de tipos de seña

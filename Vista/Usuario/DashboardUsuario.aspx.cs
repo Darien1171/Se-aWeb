@@ -93,18 +93,6 @@ namespace SeñaWeb.Vista.Usuario
                     lblModulosDetail.Text = $"{modulosCompletados} de {totalModulos} módulos completados";
                 }
 
-                // Obtener última evaluación
-                DataTable dtUltimaEvaluacion = ObtenerUltimaEvaluacion(idUsuario);
-                if (dtUltimaEvaluacion.Rows.Count > 0)
-                {
-                    DateTime fechaEval = Convert.ToDateTime(dtUltimaEvaluacion.Rows[0]["fechaEvaluacion"]);
-                    int puntaje = Convert.ToInt32(dtUltimaEvaluacion.Rows[0]["puntaje"]);
-                    lblUltimaEvaluacion.Text = $"Última evaluación: {fechaEval.ToString("dd/MM/yyyy")} - Puntaje: {puntaje}/100";
-                }
-                else
-                {
-                    lblUltimaEvaluacion.Text = "Sin evaluaciones completadas";
-                }
             }
             catch (Exception ex)
             {
@@ -112,40 +100,22 @@ namespace SeñaWeb.Vista.Usuario
             }
         }
 
-        private DataTable ObtenerUltimaEvaluacion(int idUsuario)
+        public bool ConvertToBoolean(object value)
         {
-            // Esta función obtiene la última evaluación del usuario
-            // En una implementación real, esto debería estar en una capa de lógica separada
-            DataTable dtUltimaEvaluacion = new DataTable();
-            ClConexion conexion = new ClConexion();
+            if (value == null || value == DBNull.Value)
+                return false;
 
-            using (SqlConnection conex = conexion.MtdAbrirConexion())
-            {
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 * FROM evaluacion WHERE IdUsuario = @idUsuario ORDER BY fechaEvaluacion DESC", conex))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+            if (value is bool)
+                return (bool)value;
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-                        {
-                            adapter.Fill(dtUltimaEvaluacion);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Error en ObtenerUltimaEvaluacion: " + ex.Message);
-                }
-                finally
-                {
-                    conexion.MtdCerrarConexion();
-                }
-            }
+            if (value is int || value is byte || value is short)
+                return Convert.ToInt32(value) != 0;
 
-            return dtUltimaEvaluacion;
+            string strValue = value.ToString().ToLower();
+            return strValue == "true" || strValue == "1" || strValue == "yes" || strValue == "sí";
         }
+
+      
 
         private void CargarModulosRecientes(int idUsuario)
         {

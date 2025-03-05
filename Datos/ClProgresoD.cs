@@ -87,28 +87,28 @@ namespace SeñaWeb.Datos
                 try
                 {
                     string query = @"
-                        SELECT 
-                            p.idProgreso,
-                            p.idUsuario,
-                            p.idSeña,
-                            p.estado,
-                            s.nombreSeña,
-                            ts.tipo as tipoSeña,
-                            m.nombreModulo,
-                            GETDATE() as fechaVisto
-                        FROM 
-                            progreso p
-                        INNER JOIN 
-                            seña s ON p.idSeña = s.idSeña
-                        INNER JOIN 
-                            TipoSeña ts ON s.idTipoSeña = ts.idTiposeña
-                        INNER JOIN 
-                            modulo m ON ts.idModulo = m.idModulo
-                        WHERE 
-                            p.idUsuario = @idUsuario
-                        ORDER BY 
-                            p.idProgreso DESC
-                    ";
+    SELECT 
+        p.idProgreso,
+        p.idUsuario,
+        p.idSeña,
+        CAST(p.estado AS BIT) as estado,
+        s.nombreSeña,
+        ts.tipo as tipoSeña,
+        m.nombreModulo,
+        GETDATE() as fechaVisto
+    FROM 
+        progreso p
+    INNER JOIN 
+        seña s ON p.idSeña = s.idSeña
+    INNER JOIN 
+        TipoSeña ts ON s.idTipoSeña = ts.idTiposeña
+    INNER JOIN 
+        modulo m ON ts.idModulo = m.idModulo
+    WHERE 
+        p.idUsuario = @idUsuario
+    ORDER BY 
+        p.idProgreso DESC
+";
 
                     using (SqlCommand cmd = new SqlCommand(query, conex))
                     {
@@ -146,24 +146,28 @@ namespace SeñaWeb.Datos
                 try
                 {
                     string query = @"
-                        SELECT 
-                            s.idSeña,
-                            s.nombreSeña,
-                            s.urlVideo,
-                            ts.tipo as tipoSeña,
-                            ts.descripcion as descripcionTipo,
-                            ISNULL(p.estado, 0) as estado
-                        FROM 
-                            seña s
-                        INNER JOIN 
-                            TipoSeña ts ON s.idTipoSeña = ts.idTiposeña
-                        LEFT JOIN 
-                            progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario
-                        WHERE 
-                            ts.idModulo = @idModulo
-                        ORDER BY 
-                            ts.tipo, s.nombreSeña
-                    ";
+                SELECT 
+                    s.idSeña,
+                    s.nombreSeña,
+                    s.urlVideo,
+                    ts.idTipoSeña,
+                    ts.tipo as tipoSeña,
+                    ts.descripcion as descripcionTipo,
+                    CAST(ISNULL(p.estado, 0) AS BIT) as estado
+                FROM 
+                    TipoSeña ts 
+                INNER JOIN 
+                    modulo m ON ts.idModulo = m.idModulo
+                LEFT JOIN 
+                    seña s ON ts.idTiposeña = s.idTipoSeña
+                LEFT JOIN 
+                    progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario
+                WHERE 
+                    m.idModulo = @idModulo
+                    AND s.idSeña IS NOT NULL
+                ORDER BY 
+                    ts.tipo, s.nombreSeña
+            ";
 
                     using (SqlCommand cmd = new SqlCommand(query, conex))
                     {
@@ -175,6 +179,13 @@ namespace SeñaWeb.Datos
                         {
                             adapter.Fill(dtProgresoModulo);
                         }
+                    }
+
+                    // Agregar depuración
+                    System.Diagnostics.Debug.WriteLine($"Se encontraron {dtProgresoModulo.Rows.Count} señas para el módulo {idModulo}");
+                    foreach (DataRow row in dtProgresoModulo.Rows)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Seña: {row["idSeña"]} - {row["nombreSeña"]} - Tipo: {row["tipoSeña"]}");
                     }
                 }
                 catch (Exception ex)
@@ -235,31 +246,38 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
+                    // Consulta modificada para asegurar que se muestren todos los módulos
                     string query = @"
-                        SELECT DISTINCT 
-                            m.idModulo, 
-                            m.nombreModulo,
-                            (
-                                SELECT COUNT(p.idSeña) * 100.0 / NULLIF(COUNT(s.idSeña), 0)
-                                FROM seña s
-                                LEFT JOIN progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario AND p.estado = 1
-                                INNER JOIN TipoSeña ts ON s.idTipoSeña = ts.idTiposeña
-                                WHERE ts.idModulo = m.idModulo
-                            ) as porcentajeCompletado,
-                            MAX(p.idProgreso) as ultimoProgreso
-                        FROM 
-                            modulo m
-                        INNER JOIN 
-                            TipoSeña ts ON m.idModulo = ts.idModulo
-                        INNER JOIN 
-                            seña s ON ts.idTiposeña = s.idTipoSeña
-                        LEFT JOIN 
-                            progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario
-                        GROUP BY 
-                            m.idModulo, m.nombreModulo
-                        ORDER BY 
-                            ultimoProgreso DESC
-                    ";
+                SELECT 
+                    m.idModulo, 
+                    m.nombreModulo,
+                    ISNULL(
+                        (SELECT COUNT(p.idSeña) * 100.0 / NULLIF(COUNT(s.idSeña), 0)
+                         FROM TipoSeña ts 
+                         LEFT JOIN seña s ON ts.idTiposeña = s.idTipoSeña
+                         LEFT JOIN progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario AND p.estado = 1
+                         WHERE ts.idModulo = m.idModulo
+                         GROUP BY ts.idModulo),
+                    0) as porcentajeCompletado,
+                    (SELECT MAX(p2.idProgreso) 
+                     FROM progreso p2 
+                     INNER JOIN seña s2 ON p2.idSeña = s2.idSeña
+                     INNER JOIN TipoSeña ts2 ON s2.idTipoSeña = ts2.idTiposeña
+                     WHERE ts2.idModulo = m.idModulo AND p2.idUsuario = @idUsuario) as ultimoProgreso
+                FROM 
+                    modulo m
+                ORDER BY 
+                    CASE WHEN (SELECT MAX(p3.idProgreso) 
+                               FROM progreso p3 
+                               INNER JOIN seña s3 ON p3.idSeña = s3.idSeña
+                               INNER JOIN TipoSeña ts3 ON s3.idTipoSeña = ts3.idTiposeña
+                               WHERE ts3.idModulo = m.idModulo AND p3.idUsuario = @idUsuario) IS NULL THEN 2 ELSE 1 END,
+                    (SELECT MAX(p3.idProgreso) 
+                     FROM progreso p3 
+                     INNER JOIN seña s3 ON p3.idSeña = s3.idSeña
+                     INNER JOIN TipoSeña ts3 ON s3.idTipoSeña = ts3.idTiposeña
+                     WHERE ts3.idModulo = m.idModulo AND p3.idUsuario = @idUsuario) DESC
+            ";
 
                     using (SqlCommand cmd = new SqlCommand(query, conex))
                     {

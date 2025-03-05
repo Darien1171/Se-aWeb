@@ -147,6 +147,8 @@
     <Content Include="Vista\Login.aspx" />
     <Content Include="Vista\Usuario\BibliotecaSeñas.aspx" />
     <Content Include="Vista\Usuario\DashboardUsuario.aspx" />
+    <Content Include="Vista\Usuario\Perfil.aspx" />
+    <Content Include="Vista\Usuario\SeñaDetalle.aspx" />
     <Content Include="Vista\Usuario\StyleUsuario.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -230,6 +232,20 @@
     </Compile>
     <Compile Include="Vista\Usuario\DashboardUsuario.aspx.designer.cs">
       <DependentUpon>DashboardUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Usuario\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Usuario\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Usuario\SeñaDetalle.aspx.cs">
+      <DependentUpon>SeñaDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\Usuario\SeñaDetalle.aspx.designer.cs">
+      <DependentUpon>SeñaDetalle.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Usuario\Usuario.Master.cs">
       <DependentUpon>Usuario.Master</DependentUpon>

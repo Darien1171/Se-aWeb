@@ -69,24 +69,6 @@ namespace SeñaWeb.Vista.Usuario
         protected global::System.Web.UI.WebControls.Label lblPuntajeGeneral;
 
         /// <summary>
-        /// Control lblUltimaEvaluacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUltimaEvaluacion;
-
-        /// <summary>
-        /// Control hdnProgresoGeneral.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnProgresoGeneral;
-
-        /// <summary>
         /// Control lvModulosRecientes.
         /// </summary>
         /// <remarks>

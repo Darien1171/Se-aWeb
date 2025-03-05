@@ -66,6 +66,64 @@ namespace SeñaWeb.Datos
         }
 
         // Método para listar señas recientes
+
+        public DataTable MtdObtenerDetalleSena(int idSena, int idUsuario)
+        {
+            DataTable dtSena = new DataTable();
+            ClConexion conexion = new ClConexion();
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    string query = @"
+                SELECT 
+                    s.idSeña,
+                    s.nombreSeña,
+                    s.urlVideo,
+                    ts.idTipoSeña,
+                    ts.tipo as tipoSeña,
+                    ts.descripcion as descripcionTipo,
+                    m.idModulo,
+                    m.nombreModulo,
+                    m.descripcion as descripcionModulo,
+                    CAST(ISNULL(p.estado, 0) AS BIT) as estado
+                FROM 
+                    seña s
+                INNER JOIN 
+                    TipoSeña ts ON s.idTipoSeña = ts.idTiposeña
+                INNER JOIN 
+                    modulo m ON ts.idModulo = m.idModulo
+                LEFT JOIN 
+                    progreso p ON s.idSeña = p.idSeña AND p.idUsuario = @idUsuario
+                WHERE 
+                    s.idSeña = @idSena";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conex))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idSena", idSena);
+                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dtSena);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdObtenerDetalleSena: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return dtSena;
+        }
         public DataTable MtdListarSenasRecientes(int cantidad)
         {
             DataTable dtSenas = new DataTable();
