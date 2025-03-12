@@ -211,5 +211,91 @@ namespace SeñaWeb.Datos
             return resultado;
         }
 
+
+        // Añadir estos métodos a la clase ClUsuarioD existente en SeñaWeb.Datos
+
+        // Método para verificar si un email ya existe en la base de datos
+        public bool MtdVerificarEmailExistente(string email)
+        {
+            ClConexion conexion = new ClConexion();
+            bool existe = false;
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    string query = "SELECT COUNT(*) FROM usuario WHERE Email = @Email";
+                    using (SqlCommand cmd = new SqlCommand(query, conex))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@Email", email);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        existe = (count > 0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdVerificarEmailExistente: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return existe;
+        }
+
+        // Método corregido para registrar un nuevo usuario en la base de datos
+        public int MtdRegistrarUsuario(ClUsuarioE oUsuario)
+        {
+            ClConexion conexion = new ClConexion();
+            int idUsuarioRegistrado = 0;
+
+            using (SqlConnection conex = conexion.MtdAbrirConexion())
+            {
+                try
+                {
+                    // Corrección: Usar "Password" en lugar de "Contraseña" como nombre de columna
+                    string query = @"INSERT INTO usuario (Nombre, Apellido, Email, Password, idRol) 
+                            VALUES (@Nombre, @Apellido, @Email, @Password, @idRol); 
+                            SELECT SCOPE_IDENTITY();";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conex))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@Nombre", oUsuario.Nombre);
+                        cmd.Parameters.AddWithValue("@Apellido", oUsuario.Apellido);
+                        cmd.Parameters.AddWithValue("@Email", oUsuario.Email);
+                        cmd.Parameters.AddWithValue("@Password", oUsuario.Contraseña); // Usar la propiedad Contraseña de la clase
+                        cmd.Parameters.AddWithValue("@idRol", oUsuario.idRol);
+
+                        // Ejecutar y obtener el ID insertado
+                        object result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            idUsuarioRegistrado = Convert.ToInt32(result);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error en MtdRegistrarUsuario: " + ex.Message);
+                    throw;
+                }
+                finally
+                {
+                    conexion.MtdCerrarConexion();
+                }
+            }
+
+            return idUsuarioRegistrado;
+        }
+
+
+
+
     }
 }
