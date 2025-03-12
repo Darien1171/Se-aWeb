@@ -115,7 +115,7 @@
           style="font-size: 50px"
         >
           <i class="flaticon-043-teddy-bear"></i>
-          <span class="text-primary">SeñaWeb</span>
+          <span class="text-primary">Inmiwe</span>
         </a>
         <button
           type="button"
@@ -130,8 +130,7 @@
           id="navbarCollapse"
         >
           <div class="navbar-nav font-weight-bold mx-auto py-0">
-            <a href="Index.aspx" class="nav-item nav-link active">Inicio</a>
-            <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>
+
           </div>
           <a href="Vista/Login.aspx" class="btn btn-primary px-4">Iniciar Sesion</a>
         </div>
@@ -143,7 +142,6 @@
     <div class="container-fluid px-0 px-md-5 mb-5 header-gradient">
       <div class="row align-items-center px-3">
         <div class="col-lg-6 text-center text-lg-left">
-          <h4 class="text-white mb-4 mt-5 mt-lg-0">Seña Web</h4>
           <h1 class="display-3 font-weight-bold text-white">
             Aprendiendo Lengua de Señas de Manera Innovadora
           </h1>
