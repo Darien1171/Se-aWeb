@@ -21,17 +21,17 @@ namespace SeñaWeb.Vista.Admin
 
         private void CargarContadores()
         {
-            // Obtener contador de módulos
+            
             ClModuloL logicaModulo = new ClModuloL();
             int modulosCount = logicaModulo.MtdContarModulos();
             lblModulosCount.Text = modulosCount.ToString();
 
-            // Obtener contador de tipos de señas
+            
             ClTipoSeñaL logicaTipoSena = new ClTipoSeñaL();
             int tiposSenaCount = logicaTipoSena.MtdContarTiposSena();
             lblTiposSenaCount.Text = tiposSenaCount.ToString();
 
-            // Obtener contador de señas
+            
             ClSeñaL logicaSena = new ClSeñaL();
             int senasCount = logicaSena.MtdContarSenas();
             lblSenasCount.Text = senasCount.ToString();

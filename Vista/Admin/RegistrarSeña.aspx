@@ -8,12 +8,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <!-- Título de la página -->
+        
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0">Registrar Seña</h1>
         </div>
 
-        <!-- Formulario de registro -->
+        
         <div class="row">
             <div class="col-lg-8">
                 <div class="card shadow mb-4">
@@ -21,7 +21,7 @@
                         <h6 class="m-0 font-weight-bold">Información de la Seña</h6>
                     </div>
                     <div class="card-body">
-                        <!-- Mensajes de alerta -->
+                        
                         <div id="alertSuccess" runat="server" class="alert alert-success alert-dismissible fade show" role="alert" visible="false">
                             <i class="bi bi-check-circle-fill me-2"></i>
                             <span id="successMessage" runat="server">La seña ha sido registrada correctamente.</span>
@@ -34,7 +34,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
-                        <!-- Formulario -->
+                        
                         <div class="mb-3">
                             <label for="ddlTipoSena" class="form-label">Tipo de Seña</label>
                             <asp:DropDownList ID="ddlTipoSena" runat="server" CssClass="form-select">
@@ -52,7 +52,7 @@
                             <small class="text-muted">Formatos permitidos: MP4, AVI, MOV. Tamaño máximo: 50 MB.</small>
                         </div>
 
-                        <!-- Vista previa del video -->
+                        
                         <div class="mb-3" id="videoPreviewContainer" runat="server" visible="false">
                             <label class="form-label">Vista previa:</label>
                             <video id="videoPreview" runat="server" controls="controls" style="max-width: 100%; max-height: 300px;">
@@ -60,7 +60,7 @@
                             </video>
                         </div>
 
-                        <!-- Botones de acción -->
+                        
                         <div class="mt-4 d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" 
                                 onclick="location.href='<%= ResolveUrl("~/Vista/Admin/DashboardAdmin.aspx") %>'">
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <!-- Panel lateral de ayuda -->
+            
             <div class="col-lg-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <!-- Tabla de señas recientes -->
+                
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold">Señas Recientes</h6>

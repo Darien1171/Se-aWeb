@@ -64,16 +64,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <!-- ScriptManager para habilitar AJAX -->
+
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
     <div class="container-fluid">
-        <!-- Sección de encabezado -->
+
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Biblioteca de Señas</h1>
         </div>
 
-        <!-- Estadísticas y progreso -->
+
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -143,9 +143,9 @@
             </div>
         </div>
 
-        <!-- Contenedor principal - Grid de dos columnas -->
+
         <div class="row">
-            <!-- Columna de módulos -->
+
             <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -192,7 +192,7 @@
                 </div>
             </div>
 
-            <!-- Columna de señas -->
+
             <div class="col-md-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -204,7 +204,7 @@
                         </button>
                     </div>
 
-                    <!-- Filtros de señas - Inicialmente oculto -->
+
                     <div class="card-body py-2 filters-container" id="filtersContainer" style="display: none;">
                         <div class="row g-2">
                             <div class="col-md-4">

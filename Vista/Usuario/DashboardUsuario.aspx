@@ -50,10 +50,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <!-- Control HiddenField para almacenar el progreso general -->
+
         <asp:HiddenField ID="hdnProgresoGeneral" runat="server" Value="0" />
         
-        <!-- Sección de bienvenida -->
+
         <div class="welcome-section mb-5 text-center">
             <h1 class="welcome-title">¡Bienvenido,
                 <asp:Label ID="lblUserName" runat="server" Text="Estudiante" />!</h1>
@@ -61,9 +61,9 @@
             <div class="welcome-divider mx-auto"></div>
         </div>
 
-        <!-- Tarjetas de progreso -->
+
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-            <!-- Módulos -->
+
             <div class="col">
                 <div class="progress-card module-card h-100">
                     <h5><i class="bi bi-collection"></i>Módulos Completados</h5>
@@ -80,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Señas -->
             <div class="col">
                 <div class="progress-card signs-card h-100">
                     <h5><i class="bi bi-camera-video"></i>Señas Aprendidas</h5>
@@ -97,7 +96,7 @@
                 </div>
             </div>
 
-            <!-- Evaluación -->
+
             <div class="col">
                 <div class="progress-card eval-card h-100">
                     <h5><i class="bi bi-award"></i>Progreso General</h5>
@@ -108,7 +107,7 @@
                         </div>
                     </div>
                     
-                    <!-- Detalles de progreso adicionales -->
+
                     <div class="progress-stats text-center mb-3">
                         <div class="row g-2">
                             <div class="col-6">
@@ -135,7 +134,6 @@
             </div>
         </div>
 
-        <!-- Últimos módulos estudiados -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card shadow">
@@ -177,7 +175,7 @@
             </div>
         </div>
 
-        <!-- Señas recientemente practicadas -->
+
         <div class="row">
             <div class="col-12">
                 <div class="card shadow">
@@ -220,98 +218,107 @@
         </div>
     </div>
 
-    <!-- Scripts para las gráficas -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Configuración de colores
-            const moduleColor = '#003A59';
-            const senasColor = '#D42374';
-            const progresoColor = '#28a745';
 
-            // Gráfica de Módulos
-            const modulosCtx = document.getElementById('modulosChart');
-            const modulosProgress = parseInt('<%= hdnProgresoGeneral.Value %>');
+            if (document.getElementById('modulosChart') &&
+                document.getElementById('senasChart') &&
+                document.getElementById('progresoGeneralChart')) {
 
-            new Chart(modulosCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [modulosProgress, 100 - modulosProgress],
-                        backgroundColor: [moduleColor, '#E9ECEF'],
-                        borderWidth: 0,
-                        cutout: '75%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
+
+                const moduleColor = '#003A59';
+                const senasColor = '#D42374';
+                const progresoColor = '#28a745';
+
+
+                const modulosCtx = document.getElementById('modulosChart');
+
+                const modulosProgressText = document.getElementById('<%=lblModulosProgress.ClientID%>').textContent || '0%';
+        const modulosProgress = parseInt(modulosProgressText) || 0;
+
+        new Chart(modulosCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [modulosProgress, 100 - modulosProgress],
+                    backgroundColor: [moduleColor, '#E9ECEF'],
+                    borderWidth: 0,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
                     }
                 }
-            });
-
-            // Gráfica de Señas
-            const senasCtx = document.getElementById('senasChart');
-            const senasProgress = parseInt('<%= hdnProgresoGeneral.Value %>');
-
-            new Chart(senasCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [senasProgress, 100 - senasProgress],
-                        backgroundColor: [senasColor, '#E9ECEF'],
-                        borderWidth: 0,
-                        cutout: '75%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    }
-                }
-            });
-
-            // Gráfica de Progreso General
-            const progresoCtx = document.getElementById('progresoGeneralChart');
-            const progresoGeneral = parseInt('<%= hdnProgresoGeneral.Value %>');
-
-            new Chart(progresoCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [progresoGeneral, 100 - progresoGeneral],
-                        backgroundColor: [progresoColor, '#E9ECEF'],
-                        borderWidth: 0,
-                        cutout: '75%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    }
-                }
-            });
+            }
         });
+
+        const senasCtx = document.getElementById('senasChart');
+        const senasProgressText = document.getElementById('<%=lblSenasProgress.ClientID%>').textContent || '0%';
+        const senasProgress = parseInt(senasProgressText) || 0;
+
+        new Chart(senasCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [senasProgress, 100 - senasProgress],
+                    backgroundColor: [senasColor, '#E9ECEF'],
+                    borderWidth: 0,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+
+
+        const progresoCtx = document.getElementById('progresoGeneralChart');
+        const progresoGeneralText = document.getElementById('<%=lblPuntajeGeneral.ClientID%>').textContent || '0%';
+        const progresoGeneral = parseInt(progresoGeneralText) || 0;
+
+        new Chart(progresoCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [progresoGeneral, 100 - progresoGeneral],
+                    backgroundColor: [progresoColor, '#E9ECEF'],
+                    borderWidth: 0,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+    }
+});
     </script>
 </asp:Content>

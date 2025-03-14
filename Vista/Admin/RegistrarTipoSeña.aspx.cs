@@ -16,7 +16,7 @@ namespace SeñaWeb.Vista.Admin
         {
             if (!IsPostBack)
             {
-                // Cargar datos iniciales
+                
                 try
                 {
                     CargarModulos();
@@ -24,7 +24,7 @@ namespace SeñaWeb.Vista.Admin
                 }
                 catch (Exception ex)
                 {
-                    // Solo logueamos el error pero no mostramos nada al usuario en la carga inicial
+                    
                     System.Diagnostics.Debug.WriteLine("Error al cargar datos iniciales: " + ex.Message);
                 }
             }
@@ -42,12 +42,12 @@ namespace SeñaWeb.Vista.Admin
                 ddlModulo.DataValueField = "idModulo";
                 ddlModulo.DataBind();
 
-                // Agregar item por defecto
+                
                 ddlModulo.Items.Insert(0, new ListItem("-- Seleccione un módulo --", "0"));
             }
             else
             {
-                // No hay módulos, mostrar mensaje y deshabilitar el botón de registro
+                
                 ddlModulo.Items.Clear();
                 ddlModulo.Items.Add(new ListItem("No hay módulos disponibles", "0"));
                 btnRegistrar.Enabled = false;
@@ -71,7 +71,7 @@ namespace SeñaWeb.Vista.Admin
         {
             try
             {
-                // Validación manual
+                
                 if (ddlModulo.SelectedValue == "0")
                 {
                     MostrarError("Debe seleccionar un módulo.");
@@ -90,7 +90,7 @@ namespace SeñaWeb.Vista.Admin
                     return;
                 }
 
-                // Crear objeto de entidad con los datos del formulario
+                
                 ClTipoSeñaE tipoSenaNuevo = new ClTipoSeñaE
                 {
                     tipo = txtTipo.Text.Trim(),
@@ -98,21 +98,21 @@ namespace SeñaWeb.Vista.Admin
                     idModulo = Convert.ToInt32(ddlModulo.SelectedValue)
                 };
 
-                // Instanciar la capa de lógica
+                
                 ClTipoSeñaL logicaTipoSena = new ClTipoSeñaL();
 
-                // Intentar guardar el tipo de seña
+                
                 int resultado = logicaTipoSena.MtdRegistrarTipoSena(tipoSenaNuevo);
 
                 if (resultado > 0)
                 {
-                    // Mostrar mensaje de éxito
+                    
                     MostrarExito($"¡El tipo de seña '{txtTipo.Text.Trim()}' ha sido registrado correctamente! ID: {resultado}");
 
-                    // Limpiar los campos del formulario
+                    
                     LimpiarFormulario();
 
-                    // Recargar la lista de tipos de seña recientes
+                    
                     CargarTiposSenaRecientes();
                 }
                 else
@@ -122,7 +122,7 @@ namespace SeñaWeb.Vista.Admin
             }
             catch (Exception ex)
             {
-                // Mostrar detalles del error para ayudar a depurar
+                
                 string errorMessage = "Error al registrar el tipo de seña: " + ex.Message;
 
                 if (ex.InnerException != null)
@@ -130,7 +130,7 @@ namespace SeñaWeb.Vista.Admin
                     errorMessage += " | Detalle: " + ex.InnerException.Message;
                 }
 
-                // Registrar el error completo incluyendo el stack trace
+                
                 System.Diagnostics.Debug.WriteLine(errorMessage);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
 
@@ -140,7 +140,7 @@ namespace SeñaWeb.Vista.Admin
 
         private void LimpiarFormulario()
         {
-            ddlModulo.SelectedValue = "0"; // Resetear al item por defecto
+            ddlModulo.SelectedValue = "0"; 
             txtTipo.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
         }

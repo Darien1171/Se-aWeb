@@ -146,7 +146,7 @@
             Aprendiendo Lengua de Señas de Manera Innovadora
           </h1>
           <p class="text-white mb-4">
-            Seña Web es una plataforma educativa diseñada para ayudar a los 
+            Inmiwe es una plataforma educativa diseñada para ayudar a los 
             estudiantes a aprender el lenguaje de señas de forma interactiva y dinámica.
             A través de recursos visuales, ejercicios prácticos y metodologías inclusivas, 
             buscamos fomentar la comunicación y la accesibilidad para todos.
@@ -281,9 +281,9 @@
         </div>
       </div>
     </div>
-    <!-- Team End -->
+
     
-    <!-- Testimonial Start -->
+
     <div class="container-fluid py-5">
       <div class="container p-0">
         <div class="text-center pb-2">
@@ -368,30 +368,30 @@
         </div>
       </div>
     </div>
-    <!-- Testimonial End -->
 
-   <!-- Footer Start -->
+
+
     <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
       <div class="row pt-5">
-        <!-- Seña Web -->
+
         <div class="col-lg-3 col-md-6 mb-5">
           <a href="Index.aspx" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0 d-block text-center" 
             style="font-size: 40px; line-height: 40px">
-            <img src="Vista/imagenes/logo.png" alt="Seña Web" style="height: 50px; margin-bottom: 10px; display: block; margin: auto;">
-            <span class="text-white d-block text-center">Seña Web</span>
+            <img src="Vista/imagenes/logo.png" alt="Inmiwe" style="height: 50px; margin-bottom: 10px; display: block; margin: auto;">
+            <span class="text-white d-block text-center">Inmiwe</span>
           </a>
           <p class="text-center">
-            Seña Web es un espacio dedicado a la enseñanza y aprendizaje del lenguaje de señas, 
+            Inmiwe es un espacio dedicado a la enseñanza y aprendizaje del lenguaje de señas, 
             promoviendo la inclusión y accesibilidad para todas las personas.
           </p>
         </div>
 
-        <!-- Contacto -->
+
         <div class="col-lg-3 col-md-6 mb-5 text-center">
           <h3 class="text-primary mb-4">Contacto</h3>
           <div class="mb-3">
             <h5 class="text-white mb-1">Email</h5>
-            <p class="mb-0">contacto@señaweb.com</p>
+            <p class="mb-0">contacto@Inmiwe.com</p>
           </div>
           <div>
             <h5 class="text-white mb-1">Teléfono</h5>
@@ -399,16 +399,14 @@
           </div>
         </div>
 
-        <!-- Enlaces Rápidos -->
+
         <div class="col-lg-3 col-md-6 mb-5 text-center">
           <h3 class="text-primary mb-4">Enlaces Rápidos</h3>
           <div class="d-flex flex-column align-items-center">
             <a class="text-white mb-2" href="Index.aspx"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-            <a class="text-white mb-2" href="SobreNosotros.aspx"><i class="fa fa-angle-right mr-2"></i>Sobre Nosotros</a>
           </div>
         </div>
 
-        <!-- Redes Sociales -->
         <div class="col-lg-3 col-md-6 mb-5 text-center">
           <h3 class="text-primary mb-4">Síguenos</h3>
           <div class="d-flex justify-content-center">
@@ -422,21 +420,21 @@
         </div>
       </div>
 
-      <!-- Derechos de Autor -->
+
       <div class="container-fluid pt-5 text-center" style="border-top: 1px solid rgba(212, 35, 116, 0.2);">
         <p class="m-0 text-white">
-          &copy; <a class="text-primary font-weight-bold" href="#">Seña Web</a>. Todos los derechos reservados.
+          &copy; <a class="text-primary font-weight-bold" href="#">Inmiwe</a>. Todos los derechos reservados.
         </p>
       </div>
     </div>
-    <!-- Footer End -->
 
-    <!-- Back to Top -->
+
+
     <a href="#" class="btn btn-primary p-3 back-to-top"
       ><i class="fa fa-angle-double-up"></i
     ></a>
 
-    <!-- JavaScript Libraries -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="Vista/kidkinder-1.0.0/lib/easing/easing.min.js"></script>
@@ -444,11 +442,10 @@
     <script src="Vista/kidkinder-1.0.0/lib/isotope/isotope.pkgd.min.js"></script>
     <script src="Vista/kidkinder-1.0.0/lib/lightbox/js/lightbox.min.js"></script>
 
-    <!-- Contact Javascript File -->
     <script src="Vista/kidkinder-1.0.0/mail/jqBootstrapValidation.min.js"></script>
     <script src="Vista/kidkinder-1.0.0/mail/contact.js"></script>
 
-    <!-- Template Javascript -->
+
     <script src="Vista/kidkinder-1.0.0/js/main.js"></script>
   </body>
 </html>

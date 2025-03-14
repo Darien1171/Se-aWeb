@@ -17,19 +17,19 @@ namespace SeñaWeb.Datos
             {
                 ClUsuarioE oDatosUsuario = new ClUsuarioE();
 
-                // Ejecutar el SP
+                
                 using (SqlCommand cmd = new SqlCommand("sp_Login", conex))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Email", oSesionUsuario.Email);
                     cmd.Parameters.AddWithValue("@Password", oSesionUsuario.Contraseña);
 
-                    // Ejecutar el SP y leer los resultados
+                    
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Verificar si se obtuvo un usuario válido
+                            
                             if (reader["idUsuario"] != DBNull.Value && reader["idRol"] != DBNull.Value)
                             {
                                 oDatosUsuario.idUsuario = Convert.ToInt32(reader["idUsuario"]);
@@ -37,14 +37,14 @@ namespace SeñaWeb.Datos
                             }
                             else
                             {
-                                // En caso de error, se establecen valores predeterminados
+                                
                                 oDatosUsuario.idUsuario = 0;
                                 oDatosUsuario.idRol = 0;
                             }
                         }
                         else
                         {
-                            // Si no hay resultados, se establece un valor de error
+                            
                             oDatosUsuario.idUsuario = 0;
                             oDatosUsuario.idRol = 0;
                         }
@@ -57,7 +57,7 @@ namespace SeñaWeb.Datos
         }
 
 
-        // Obtener datos del usuario por ID
+        
         public ClUsuarioE MtdObtenerUsuarioPorId(int idUsuario)
         {
             ClUsuarioE oUsuario = null;
@@ -117,7 +117,7 @@ namespace SeñaWeb.Datos
             return oUsuario;
         }
 
-        // Actualizar datos del usuario
+        
         public bool MtdActualizarUsuario(ClUsuarioE oUsuario)
         {
             ClConexion conexion = new ClConexion();
@@ -162,7 +162,7 @@ namespace SeñaWeb.Datos
             return resultado;
         }
 
-        // Cambiar contraseña
+        
         public bool MtdCambiarContrasena(int idUsuario, string contrasenaActual, string nuevaContrasena)
         {
             ClConexion conexion = new ClConexion();
@@ -172,7 +172,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Primero verificar la contraseña actual
+                    
                     string queryVerificar = "SELECT COUNT(*) FROM usuario WHERE idUsuario = @idUsuario AND Contraseña = @contrasenaActual";
                     using (SqlCommand cmdVerificar = new SqlCommand(queryVerificar, conex))
                     {
@@ -182,11 +182,11 @@ namespace SeñaWeb.Datos
                         int count = Convert.ToInt32(cmdVerificar.ExecuteScalar());
                         if (count == 0)
                         {
-                            return false; // La contraseña actual no coincide
+                            return false; 
                         }
                     }
 
-                    // Si la verificación es exitosa, actualizar la contraseña
+                    
                     string queryActualizar = "UPDATE usuario SET Contraseña = @nuevaContrasena WHERE idUsuario = @idUsuario";
                     using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conex))
                     {
@@ -212,9 +212,9 @@ namespace SeñaWeb.Datos
         }
 
 
-        // Añadir estos métodos a la clase ClUsuarioD existente en SeñaWeb.Datos
+        
 
-        // Método para verificar si un email ya existe en la base de datos
+        
         public bool MtdVerificarEmailExistente(string email)
         {
             ClConexion conexion = new ClConexion();
@@ -248,7 +248,7 @@ namespace SeñaWeb.Datos
             return existe;
         }
 
-        // Método corregido para registrar un nuevo usuario en la base de datos
+        
         public int MtdRegistrarUsuario(ClUsuarioE oUsuario)
         {
             ClConexion conexion = new ClConexion();
@@ -258,7 +258,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Corrección: Usar "Password" en lugar de "Contraseña" como nombre de columna
+                    
                     string query = @"INSERT INTO usuario (Nombre, Apellido, Email, Password, idRol) 
                             VALUES (@Nombre, @Apellido, @Email, @Password, @idRol); 
                             SELECT SCOPE_IDENTITY();";
@@ -269,10 +269,10 @@ namespace SeñaWeb.Datos
                         cmd.Parameters.AddWithValue("@Nombre", oUsuario.Nombre);
                         cmd.Parameters.AddWithValue("@Apellido", oUsuario.Apellido);
                         cmd.Parameters.AddWithValue("@Email", oUsuario.Email);
-                        cmd.Parameters.AddWithValue("@Password", oUsuario.Contraseña); // Usar la propiedad Contraseña de la clase
+                        cmd.Parameters.AddWithValue("@Password", oUsuario.Contraseña); 
                         cmd.Parameters.AddWithValue("@idRol", oUsuario.idRol);
 
-                        // Ejecutar y obtener el ID insertado
+                        
                         object result = cmd.ExecuteScalar();
                         if (result != null && result != DBNull.Value)
                         {

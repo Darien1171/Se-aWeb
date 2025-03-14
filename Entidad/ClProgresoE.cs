@@ -7,9 +7,9 @@ namespace SeñaWeb.Entidad
 {
     public class ClProgresoE
     {
-        public int idProgreso { get; set; }   // ID del registro de progreso
-        public int idUsuario { get; set; }    // ID del usuario
-        public int idSeña { get; set; }       // ID de la seña
-        public bool estado { get; set; }      // Estado (true = visto, false = no visto)
+        public int idProgreso { get; set; }   
+        public int idUsuario { get; set; }    
+        public int idSeña { get; set; }       
+        public bool estado { get; set; }      
     }
 }

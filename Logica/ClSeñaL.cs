@@ -16,39 +16,39 @@ namespace SeñaWeb.Logica
             return datosSena.MtdContarSenas();
         }
 
-        // Método para registrar una nueva seña
+        
         public int MtdRegistrarSena(ClSeñaE oSena)
         {
             try
             {
-                // Validaciones adicionales
+                
                 if (string.IsNullOrWhiteSpace(oSena.nombreSeña) ||
                     string.IsNullOrWhiteSpace(oSena.urlVideo) ||
                     oSena.idTipoSeña <= 0)
                 {
-                    return 0; // No se puede registrar con datos faltantes o inválidos
+                    return 0; 
                 }
 
-                // Realizar la operación a través de la capa de datos
+                
                 ClSeñaD datosSena = new ClSeñaD();
                 return datosSena.MtdRegistrarSena(oSena);
             }
             catch (Exception ex)
             {
-                // Registrar el error para depuración
+                
                 System.Diagnostics.Debug.WriteLine("Error en MtdRegistrarSena (Lógica): " + ex.Message);
-                throw; // Re-lanzar para manejo en capa superior
+                throw; 
             }
         }
 
-        // Método para listar señas recientes
+        
         public DataTable MtdListarSenasRecientes(int cantidad)
         {
             try
             {
                 if (cantidad <= 0)
                 {
-                    cantidad = 5; // Valor predeterminado
+                    cantidad = 5; 
                 }
 
                 ClSeñaD datosSena = new ClSeñaD();
@@ -61,7 +61,7 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para obtener tipos de seña por módulo
+        
         public DataTable MtdObtenerTiposSenaPorModulo(int idModulo)
         {
             try
@@ -80,7 +80,7 @@ namespace SeñaWeb.Logica
         {
             try
             {
-                // Validaciones
+                
                 if (idSena <= 0)
                 {
                     throw new ArgumentException("El ID de la seña no es válido.");
@@ -91,14 +91,14 @@ namespace SeñaWeb.Logica
                     throw new ArgumentException("El ID del usuario no es válido.");
                 }
 
-                // Llamar a la capa de datos
+                
                 ClSeñaD datosSena = new ClSeñaD();
                 return datosSena.MtdObtenerDetalleSena(idSena, idUsuario);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error en MtdObtenerDetalleSena (Lógica): " + ex.Message);
-                throw; // Re-lanzar para manejo en capa superior
+                throw; 
             }
         }
     }

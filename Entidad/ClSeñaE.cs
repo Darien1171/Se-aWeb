@@ -7,9 +7,9 @@ namespace SeñaWeb.Entidad
 {
     public class ClSeñaE
     {
-        public int idSeña { get; set; }      // ID de la seña
-        public string nombreSeña { get; set; } // Nombre de la seña
-        public string urlVideo { get; set; }  // URL del video de la seña
-        public int idTipoSeña { get; set; }   // ID del tipo de seña al que pertenece
+        public int idSeña { get; set; }      
+        public string nombreSeña { get; set; } 
+        public string urlVideo { get; set; }  
+        public int idTipoSeña { get; set; }   
     }
 }

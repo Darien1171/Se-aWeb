@@ -23,7 +23,7 @@ namespace SeñaWeb.Datos
             }
         }
 
-        // Método para registrar un nuevo tipo de seña
+        
         public int MtdRegistrarTipoSena(ClTipoSeñaE oTipoSena)
         {
             ClConexion conexion = new ClConexion();
@@ -31,17 +31,17 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Usar un comando SQL directo en lugar de un procedimiento almacenado
+                    
                     using (SqlCommand cmd = new SqlCommand("INSERT INTO TipoSeña (tipo, descripcion, idModulo) VALUES (@tipo, @descripcion, @idModulo); SELECT SCOPE_IDENTITY();", conex))
                     {
                         cmd.CommandType = CommandType.Text;
 
-                        // Parámetros de entrada
+                        
                         cmd.Parameters.AddWithValue("@tipo", oTipoSena.tipo);
                         cmd.Parameters.AddWithValue("@descripcion", oTipoSena.descripcion);
                         cmd.Parameters.AddWithValue("@idModulo", oTipoSena.idModulo);
 
-                        // Ejecutar y obtener el ID insertado
+                        
                         object result = cmd.ExecuteScalar();
                         if (result != null && result != DBNull.Value)
                         {
@@ -51,21 +51,21 @@ namespace SeñaWeb.Datos
                 }
                 catch (Exception ex)
                 {
-                    // Registrar la excepción para depuración
+                    
                     System.Diagnostics.Debug.WriteLine("Error en MtdRegistrarTipoSena: " + ex.Message);
-                    throw; // Re-lanzar la excepción para que sea manejada en la capa superior
+                    throw; 
                 }
                 finally
                 {
-                    // Asegurar que la conexión se cierre
+                    
                     conexion.MtdCerrarConexion();
                 }
 
-                return 0; // Si no se pudo insertar
+                return 0; 
             }
         }
 
-        // Método para listar tipos de seña recientes
+        
         public DataTable MtdListarTiposSenaRecientes(int cantidad)
         {
             DataTable dtTiposSena = new DataTable();
@@ -75,7 +75,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Usar consulta SQL directa que incluya el nombre del módulo
+                    
                     using (SqlCommand cmd = new SqlCommand(@"
                         SELECT TOP (@cantidad) ts.idTiposeña, ts.tipo, ts.descripcion, m.nombreModulo 
                         FROM TipoSeña ts
@@ -85,7 +85,7 @@ namespace SeñaWeb.Datos
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@cantidad", cantidad);
 
-                        // Ejecutar y llenar el DataTable
+                        
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dtTiposSena);
@@ -106,7 +106,7 @@ namespace SeñaWeb.Datos
             return dtTiposSena;
         }
 
-        // Método para obtener todos los módulos para el DropDownList
+        
         public DataTable MtdObtenerModulos()
         {
             DataTable dtModulos = new DataTable();
@@ -120,7 +120,7 @@ namespace SeñaWeb.Datos
                     {
                         cmd.CommandType = CommandType.Text;
 
-                        // Ejecutar y llenar el DataTable
+                        
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dtModulos);
@@ -141,7 +141,7 @@ namespace SeñaWeb.Datos
             return dtModulos;
         }
 
-        // Método para obtener todos los tipos de seña
+        
         public DataTable MtdObtenerTodosTiposSena()
         {
             DataTable dtTiposSena = new DataTable();
@@ -159,7 +159,7 @@ namespace SeñaWeb.Datos
                     {
                         cmd.CommandType = CommandType.Text;
 
-                        // Ejecutar y llenar el DataTable
+                        
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dtTiposSena);

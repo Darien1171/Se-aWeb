@@ -16,14 +16,14 @@ namespace SeñaWeb.Vista.Admin
         {
             if (!IsPostBack)
             {
-                // Cargar datos iniciales
+                
                 try
                 {
                     CargarModulosRecientes();
                 }
                 catch (Exception ex)
                 {
-                    // Solo logueamos el error pero no mostramos nada al usuario en la carga inicial
+                    
                     System.Diagnostics.Debug.WriteLine("Error al cargar módulos: " + ex.Message);
                 }
             }
@@ -45,7 +45,7 @@ namespace SeñaWeb.Vista.Admin
         {
             try
             {
-                // Validación manual
+                
                 if (string.IsNullOrWhiteSpace(txtNombreModulo.Text))
                 {
                     MostrarError("El nombre del módulo es obligatorio.");
@@ -58,28 +58,28 @@ namespace SeñaWeb.Vista.Admin
                     return;
                 }
 
-                // Crear objeto de entidad con los datos del formulario
+                
                 ClModuloE moduloNuevo = new ClModuloE
                 {
                     nombreModulo = txtNombreModulo.Text.Trim(),
                     descripcion = txtDescripcion.Text.Trim()
                 };
 
-                // Instanciar la capa de lógica
+                
                 ClModuloL logicaModulo = new ClModuloL();
 
-                // Intentar guardar el módulo
+                
                 int resultado = logicaModulo.MtdRegistrarModulo(moduloNuevo);
 
                 if (resultado > 0)
                 {
-                    // Mostrar mensaje de éxito
+                    
                     MostrarExito("¡El módulo ha sido registrado correctamente! ID: " + resultado);
 
-                    // Limpiar los campos del formulario
+                    
                     LimpiarFormulario();
 
-                    // Recargar la lista de módulos recientes
+                    
                     CargarModulosRecientes();
                 }
                 else
@@ -89,7 +89,7 @@ namespace SeñaWeb.Vista.Admin
             }
             catch (Exception ex)
             {
-                // Mostrar detalles del error para ayudar a depurar
+                
                 string errorMessage = "Error al registrar el módulo: " + ex.Message;
 
                 if (ex.InnerException != null)
@@ -97,7 +97,7 @@ namespace SeñaWeb.Vista.Admin
                     errorMessage += " | Detalle: " + ex.InnerException.Message;
                 }
 
-                // Registrar el error completo incluyendo el stack trace
+                
                 System.Diagnostics.Debug.WriteLine(errorMessage);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
 

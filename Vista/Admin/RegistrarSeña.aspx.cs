@@ -14,16 +14,16 @@ namespace SeñaWeb.Vista.Admin
 {
     public partial class RegistrarSeña : System.Web.UI.Page
     {
-        // Extensiones de archivo permitidas para videos
+        
         private readonly string[] extensionesPermitidas = new string[] { ".mp4", ".avi", ".mov", ".wmv" };
-        // Tamaño máximo de archivo en MB
+        
         private const int tamanoMaximoMB = 50;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // Cargar datos iniciales
+                
                 try
                 {
                     CargarTiposSena();
@@ -31,7 +31,7 @@ namespace SeñaWeb.Vista.Admin
                 }
                 catch (Exception ex)
                 {
-                    // Solo logueamos el error pero no mostramos nada al usuario en la carga inicial
+                    
                     System.Diagnostics.Debug.WriteLine("Error al cargar datos iniciales: " + ex.Message);
                 }
             }
@@ -51,7 +51,7 @@ namespace SeñaWeb.Vista.Admin
                 ddlTipoSena.DataValueField = "idTiposeña";
                 ddlTipoSena.DataBind();
 
-                // Agregar item por defecto
+                
                 ddlTipoSena.Items.Insert(0, new ListItem("-- Seleccione un tipo de seña --", "0"));
             }
             else
@@ -78,7 +78,7 @@ namespace SeñaWeb.Vista.Admin
         {
             try
             {
-                // Validación manual
+                
                 if (ddlTipoSena.SelectedValue == "0")
                 {
                     MostrarError("Debe seleccionar un tipo de seña.");
@@ -97,7 +97,7 @@ namespace SeñaWeb.Vista.Admin
                     return;
                 }
 
-                // Validar la extensión del archivo
+                
                 string extension = Path.GetExtension(fileVideo.FileName).ToLower();
                 if (!extensionesPermitidas.Contains(extension))
                 {
@@ -105,35 +105,35 @@ namespace SeñaWeb.Vista.Admin
                     return;
                 }
 
-                // Validar el tamaño del archivo
+                
                 if (fileVideo.PostedFile.ContentLength > tamanoMaximoMB * 1024 * 1024)
                 {
                     MostrarError($"El archivo excede el tamaño máximo permitido de {tamanoMaximoMB} MB.");
                     return;
                 }
 
-                // Generar un nombre único para el archivo
+                
                 string nombreArchivo = GenerarNombreArchivoUnico(txtNombreSena.Text, extension);
 
-                // Ruta de la carpeta "Videos" en la raíz del proyecto
+                
                 string rutaCarpeta = Server.MapPath("~/Videos/");
 
-                // Verificar si la carpeta existe, si no, crearla
+                
                 if (!Directory.Exists(rutaCarpeta))
                 {
                     Directory.CreateDirectory(rutaCarpeta);
                 }
 
-                // Ruta completa del archivo
+                
                 string rutaCompleta = Path.Combine(rutaCarpeta, nombreArchivo);
 
-                // Guardar el archivo
+                
                 fileVideo.SaveAs(rutaCompleta);
 
-                // Ruta relativa para guardar en la base de datos
+                
                 string rutaRelativa = "~/Videos/" + nombreArchivo;
 
-                // Crear objeto de entidad con los datos del formulario
+                
                 ClSeñaE senaNueva = new ClSeñaE
                 {
                     nombreSeña = txtNombreSena.Text.Trim(),
@@ -141,25 +141,25 @@ namespace SeñaWeb.Vista.Admin
                     idTipoSeña = Convert.ToInt32(ddlTipoSena.SelectedValue)
                 };
 
-                // Instanciar la capa de lógica
+                
                 ClSeñaL logicaSena = new ClSeñaL();
 
-                // Intentar guardar la seña
+                
                 int resultado = logicaSena.MtdRegistrarSena(senaNueva);
 
                 if (resultado > 0)
                 {
-                    // Mostrar mensaje de éxito
+                    
                     MostrarExito($"¡La seña '{txtNombreSena.Text.Trim()}' ha sido registrada correctamente! ID: {resultado}");
 
-                    // Mostrar vista previa del video
+                    
                     videoPreviewContainer.Visible = true;
                     videoPreview.Src = rutaRelativa;
 
-                    // Limpiar los campos del formulario (excepto la vista previa)
+                    
                     txtNombreSena.Text = string.Empty;
 
-                    // Recargar la lista de señas recientes
+                    
                     CargarSenasRecientes();
                 }
                 else
@@ -169,7 +169,7 @@ namespace SeñaWeb.Vista.Admin
             }
             catch (Exception ex)
             {
-                // Mostrar detalles del error para ayudar a depurar
+                
                 string errorMessage = "Error al registrar la seña: " + ex.Message;
 
                 if (ex.InnerException != null)
@@ -177,7 +177,7 @@ namespace SeñaWeb.Vista.Admin
                     errorMessage += " | Detalle: " + ex.InnerException.Message;
                 }
 
-                // Registrar el error completo incluyendo el stack trace
+                
                 System.Diagnostics.Debug.WriteLine(errorMessage);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
 
@@ -187,16 +187,16 @@ namespace SeñaWeb.Vista.Admin
 
         private string GenerarNombreArchivoUnico(string nombreOriginal, string extension)
         {
-            // Limpiar el nombre original (quitar caracteres especiales y espacios)
+            
             string nombreLimpio = new string(nombreOriginal.Where(c => char.IsLetterOrDigit(c) || c == '-' || c == '_').ToArray());
 
-            // Agregar timestamp para garantizar unicidad
+            
             string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            // Generar un GUID corto para mayor unicidad
+            
             string guid = Guid.NewGuid().ToString("N").Substring(0, 8);
 
-            // Combinar todo
+            
             return $"{nombreLimpio}-{timestamp}-{guid}{extension}";
         }
 

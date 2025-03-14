@@ -23,7 +23,7 @@ namespace SeñaWeb.Datos
             }
         }
 
-        // Método para registrar una nueva seña
+        
         public int MtdRegistrarSena(ClSeñaE oSena)
         {
             ClConexion conexion = new ClConexion();
@@ -31,17 +31,17 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Usar un comando SQL directo en lugar de un procedimiento almacenado
+                    
                     using (SqlCommand cmd = new SqlCommand("INSERT INTO seña (nombreSeña, urlVideo, idTipoSeña) VALUES (@nombreSeña, @urlVideo, @idTipoSeña); SELECT SCOPE_IDENTITY();", conex))
                     {
                         cmd.CommandType = CommandType.Text;
 
-                        // Parámetros de entrada
+                        
                         cmd.Parameters.AddWithValue("@nombreSeña", oSena.nombreSeña);
                         cmd.Parameters.AddWithValue("@urlVideo", oSena.urlVideo);
                         cmd.Parameters.AddWithValue("@idTipoSeña", oSena.idTipoSeña);
 
-                        // Ejecutar y obtener el ID insertado
+                        
                         object result = cmd.ExecuteScalar();
                         if (result != null && result != DBNull.Value)
                         {
@@ -51,21 +51,21 @@ namespace SeñaWeb.Datos
                 }
                 catch (Exception ex)
                 {
-                    // Registrar la excepción para depuración
+                    
                     System.Diagnostics.Debug.WriteLine("Error en MtdRegistrarSena: " + ex.Message);
-                    throw; // Re-lanzar la excepción para que sea manejada en la capa superior
+                    throw; 
                 }
                 finally
                 {
-                    // Asegurar que la conexión se cierre
+                    
                     conexion.MtdCerrarConexion();
                 }
 
-                return 0; // Si no se pudo insertar
+                return 0; 
             }
         }
 
-        // Método para listar señas recientes
+        
 
         public DataTable MtdObtenerDetalleSena(int idSena, int idUsuario)
         {
@@ -133,7 +133,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Usar consulta SQL directa que incluya información de tipo
+                    
                     using (SqlCommand cmd = new SqlCommand(@"
                         SELECT TOP (@cantidad) s.idSeña, s.nombreSeña, s.urlVideo, ts.tipo
                         FROM seña s
@@ -143,7 +143,7 @@ namespace SeñaWeb.Datos
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@cantidad", cantidad);
 
-                        // Ejecutar y llenar el DataTable
+                        
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dtSenas);
@@ -164,7 +164,7 @@ namespace SeñaWeb.Datos
             return dtSenas;
         }
 
-        // Método para obtener tipos de seña por módulo
+        
         public DataTable MtdObtenerTiposSenaPorModulo(int idModulo)
         {
             DataTable dtTiposSena = new DataTable();
@@ -179,7 +179,7 @@ namespace SeñaWeb.Datos
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@idModulo", idModulo);
 
-                        // Ejecutar y llenar el DataTable
+                        
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dtTiposSena);

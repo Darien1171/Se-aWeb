@@ -171,7 +171,7 @@
     <div class="registro-container">
         <div class="card">
             <div class="row g-0">
-                <!-- Lado del formulario -->
+
                 <div class="col-lg-6 registro-form-side">
                     <div class="logo-container">
                         <img src="../recursos/assets/img/LogoSeñas.jpg" alt="Logo Iminwe" class="logo" />
@@ -217,7 +217,7 @@
                     </form>
                 </div>
                 
-                <!-- Lado de bienvenida -->
+
                 <div class="col-lg-6 welcome-side">
                     <h2 class="welcome-title">Únete a Iminwe</h2>
                     <p class="welcome-text">

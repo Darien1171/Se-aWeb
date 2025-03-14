@@ -12,50 +12,50 @@ namespace SeñaWeb.Vista.Usuario
 {
     public partial class SeñaDetalle : System.Web.UI.Page
     {
-        // Variable para almacenar el ID de la seña actual
+        
         private int idSena = 0;
 
-        // Variable para almacenar el ID del módulo al que pertenece la seña
+        
         private int idModulo = 0;
 
-        // Variable para almacenar el estado actual de la seña
+        
         private bool estaVisto = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Verificar si hay una sesión activa
+            
             if (Session["userID"] == null)
             {
                 Response.Redirect("~/Vista/Login.aspx");
                 return;
             }
 
-            // Obtener el ID de la seña de la URL
+            
             if (Request.QueryString["id"] != null)
             {
                 if (int.TryParse(Request.QueryString["id"], out idSena))
                 {
                     if (!IsPostBack)
                     {
-                        // Cargar los datos de la seña
+                        
                         CargarDetalleSena();
 
-                        // Cargar señas relacionadas
+                        
                         CargarSenasRelacionadas();
 
-                        // Actualizar información de progreso
+                        
                         ActualizarProgreso();
                     }
                 }
                 else
                 {
-                    // ID de seña inválido, redirigir a la biblioteca de señas
+                    
                     Response.Redirect("~/Vista/Usuario/BibliotecaSeñas.aspx");
                 }
             }
             else
             {
-                // No se proporcionó ID de seña, redirigir a la biblioteca de señas
+                
                 Response.Redirect("~/Vista/Usuario/BibliotecaSeñas.aspx");
             }
         }
@@ -64,28 +64,28 @@ namespace SeñaWeb.Vista.Usuario
         {
             try
             {
-                // Obtener usuario actual
+                
                 int idUsuario = Convert.ToInt32(Session["userID"]);
 
-                // Usar la capa lógica
+                
                 ClSeñaL logicaSena = new ClSeñaL();
 
-                // Obtener datos de la seña y su estado para el usuario actual
+                
                 DataTable dtSena = logicaSena.MtdObtenerDetalleSena(idSena, idUsuario);
 
                 if (dtSena.Rows.Count > 0)
                 {
                     DataRow row = dtSena.Rows[0];
 
-                    // Llenar los controles con los datos de la seña
+                    
                     lblNombreSena.InnerText = row["nombreSeña"].ToString();
                     lblTipoSena.InnerText = row["tipoSeña"].ToString();
 
-                    // URL del video
+                    
                     string urlVideo = row["urlVideo"].ToString();
                     videoPlayer.Src = ResolveUrl(urlVideo);
 
-                    // Descripción (si existe)
+                    
                     if (row["descripcionTipo"] != DBNull.Value)
                     {
                         lblDescripcion.InnerText = row["descripcionTipo"].ToString();
@@ -95,29 +95,29 @@ namespace SeñaWeb.Vista.Usuario
                         lblDescripcion.InnerText = "No hay descripción disponible para esta seña.";
                     }
 
-                    // Obtener ID del módulo para el enlace y las señas relacionadas
+                    
                     idModulo = Convert.ToInt32(row["idModulo"]);
 
-                    // Configurar el enlace al módulo
+                    
                     lnkModulo.Text = row["nombreModulo"].ToString();
                     lnkModulo.NavigateUrl = $"~/Vista/Usuario/BibliotecaSeñas.aspx?modulo={idModulo}";
 
-                    // Verificar si la seña está marcada como vista
+                    
                     estaVisto = row["estado"] != DBNull.Value && ConvertToBoolean(row["estado"]);
 
-                    // Actualizar los botones según el estado
+                    
                     ActualizarBotonesEstado();
                 }
                 else
                 {
-                    // La seña no existe, redirigir a la biblioteca
+                    
                     Response.Redirect("~/Vista/Usuario/BibliotecaSeñas.aspx");
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error en CargarDetalleSena: " + ex.Message);
-                // Opcionalmente mostrar un mensaje de error al usuario
+                
             }
         }
 
@@ -127,22 +127,22 @@ namespace SeñaWeb.Vista.Usuario
             {
                 if (idModulo <= 0)
                 {
-                    return; // No tenemos un módulo válido para buscar señas relacionadas
+                    return; 
                 }
 
                 int idUsuario = Convert.ToInt32(Session["userID"]);
 
-                // Usar la capa lógica para obtener los datos
+                
                 ClProgresoL logicaProgreso = new ClProgresoL();
 
-                // Obtener todas las señas del mismo módulo (excluyendo la seña actual)
+                
                 DataTable dtSenasRelacionadas = logicaProgreso.MtdObtenerProgresoModulo(idUsuario, idModulo);
 
-                // Filtrar para excluir la seña actual
+                
                 dtSenasRelacionadas.DefaultView.RowFilter = $"idSeña <> {idSena}";
                 dtSenasRelacionadas = dtSenasRelacionadas.DefaultView.ToTable();
 
-                // Limitar a máximo 5 señas relacionadas
+                
                 if (dtSenasRelacionadas.Rows.Count > 5)
                 {
                     DataTable dtLimitado = dtSenasRelacionadas.Clone();
@@ -153,7 +153,7 @@ namespace SeñaWeb.Vista.Usuario
                     dtSenasRelacionadas = dtLimitado;
                 }
 
-                // Asignar al ListView
+                
                 lvSenasRelacionadas.DataSource = dtSenasRelacionadas;
                 lvSenasRelacionadas.DataBind();
             }
@@ -169,18 +169,18 @@ namespace SeñaWeb.Vista.Usuario
             {
                 if (idModulo <= 0)
                 {
-                    return; // No tenemos un módulo válido
+                    return; 
                 }
 
                 int idUsuario = Convert.ToInt32(Session["userID"]);
 
-                // Usar la capa lógica
+                
                 ClProgresoL logicaProgreso = new ClProgresoL();
 
-                // Obtener todas las señas del mismo módulo
+                
                 DataTable dtSenasModulo = logicaProgreso.MtdObtenerProgresoModulo(idUsuario, idModulo);
 
-                // Contar señas vistas y total
+                
                 int totalSenas = dtSenasModulo.Rows.Count;
                 int senasVistas = 0;
 
@@ -192,10 +192,10 @@ namespace SeñaWeb.Vista.Usuario
                     }
                 }
 
-                // Calcular porcentaje
+                
                 int porcentaje = (totalSenas > 0) ? (senasVistas * 100) / totalSenas : 0;
 
-                // Actualizar controles
+                
                 lblPorcentajeProgreso.InnerText = porcentaje.ToString() + "%";
                 progressBar.Style["width"] = porcentaje.ToString() + "%";
                 progressBar.Attributes["aria-valuenow"] = porcentaje.ToString();
@@ -217,13 +217,13 @@ namespace SeñaWeb.Vista.Usuario
         {
             try
             {
-                // Actualizar estado a "visto"
+                
                 ActualizarEstadoSena(true);
 
-                // Mostrar mensaje de éxito
+                
                 MostrarMensajeExito("¡Seña marcada como vista correctamente!");
 
-                // Actualizar UI
+                
                 estaVisto = true;
                 ActualizarBotonesEstado();
                 ActualizarProgreso();
@@ -238,13 +238,13 @@ namespace SeñaWeb.Vista.Usuario
         {
             try
             {
-                // Actualizar estado a "pendiente"
+                
                 ActualizarEstadoSena(false);
 
-                // Mostrar mensaje de éxito
+                
                 MostrarMensajeExito("Seña marcada como pendiente.");
 
-                // Actualizar UI
+                
                 estaVisto = false;
                 ActualizarBotonesEstado();
                 ActualizarProgreso();
@@ -259,7 +259,7 @@ namespace SeñaWeb.Vista.Usuario
         {
             int idUsuario = Convert.ToInt32(Session["userID"]);
 
-            // Crear objeto de progreso
+            
             ClProgresoE oProgreso = new ClProgresoE
             {
                 idUsuario = idUsuario,
@@ -267,14 +267,14 @@ namespace SeñaWeb.Vista.Usuario
                 estado = estado
             };
 
-            // Actualizar el progreso mediante la capa lógica
+            
             ClProgresoL logicaProgreso = new ClProgresoL();
             logicaProgreso.MtdRegistrarProgreso(oProgreso);
         }
 
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
-            // Regresar a la página anterior o a la biblioteca de señas con el módulo seleccionado
+            
             if (idModulo > 0)
             {
                 Response.Redirect($"~/Vista/Usuario/BibliotecaSeñas.aspx?modulo={idModulo}");
@@ -300,7 +300,7 @@ namespace SeñaWeb.Vista.Usuario
             successMessage.InnerText = mensaje;
         }
 
-        // Método auxiliar para convertir diferentes formatos a booleano
+        
         public bool ConvertToBoolean(object value)
         {
             if (value == null || value == DBNull.Value)

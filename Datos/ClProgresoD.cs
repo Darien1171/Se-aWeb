@@ -10,7 +10,7 @@ namespace SeñaWeb.Datos
 {
     public class ClProgresoD
     {
-        // Método para registrar o actualizar el progreso de un usuario en una seña
+        
         public int MtdRegistrarProgreso(ClProgresoE oProgreso)
         {
             ClConexion conexion = new ClConexion();
@@ -18,7 +18,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Verificar si ya existe un registro de progreso para este usuario y seña
+                    
                     using (SqlCommand cmdCheck = new SqlCommand("SELECT idProgreso FROM progreso WHERE idUsuario = @idUsuario AND idSeña = @idSeña", conex))
                     {
                         cmdCheck.CommandType = CommandType.Text;
@@ -27,7 +27,7 @@ namespace SeñaWeb.Datos
 
                         object existingId = cmdCheck.ExecuteScalar();
 
-                        // Si ya existe, actualizar el registro
+                        
                         if (existingId != null && existingId != DBNull.Value)
                         {
                             int idProgreso = Convert.ToInt32(existingId);
@@ -41,7 +41,7 @@ namespace SeñaWeb.Datos
                                 return idProgreso;
                             }
                         }
-                        // Si no existe, crear un nuevo registro
+                        
                         else
                         {
                             using (SqlCommand cmdInsert = new SqlCommand("INSERT INTO progreso (idUsuario, idSeña, estado) VALUES (@idUsuario, @idSeña, @estado); SELECT SCOPE_IDENTITY();", conex))
@@ -52,7 +52,7 @@ namespace SeñaWeb.Datos
                                 cmdInsert.Parameters.AddWithValue("@idSeña", oProgreso.idSeña);
                                 cmdInsert.Parameters.AddWithValue("@estado", oProgreso.estado);
 
-                                // Ejecutar y obtener el ID insertado
+                                
                                 object result = cmdInsert.ExecuteScalar();
                                 if (result != null && result != DBNull.Value)
                                 {
@@ -72,11 +72,11 @@ namespace SeñaWeb.Datos
                     conexion.MtdCerrarConexion();
                 }
 
-                return 0; // Si no se pudo insertar/actualizar
+                return 0; 
             }
         }
 
-        // Método para obtener el progreso de un usuario
+        
         public DataTable MtdObtenerProgresoUsuario(int idUsuario)
         {
             DataTable dtProgreso = new DataTable();
@@ -135,7 +135,7 @@ namespace SeñaWeb.Datos
             return dtProgreso;
         }
 
-        // Método para obtener el progreso de un usuario en un módulo específico
+        
         public DataTable MtdObtenerProgresoModulo(int idUsuario, int idModulo)
         {
             DataTable dtProgresoModulo = new DataTable();
@@ -181,7 +181,7 @@ namespace SeñaWeb.Datos
                         }
                     }
 
-                    // Agregar depuración
+                    
                     System.Diagnostics.Debug.WriteLine($"Se encontraron {dtProgresoModulo.Rows.Count} señas para el módulo {idModulo}");
                     foreach (DataRow row in dtProgresoModulo.Rows)
                     {
@@ -202,7 +202,7 @@ namespace SeñaWeb.Datos
             return dtProgresoModulo;
         }
 
-        // Método para obtener el número de señas vistas por el usuario
+        
         public int MtdContarSenasVistas(int idUsuario)
         {
             ClConexion conexion = new ClConexion();
@@ -236,7 +236,7 @@ namespace SeñaWeb.Datos
             }
         }
 
-        // Método para obtener módulos con porcentaje de completado
+        
         public DataTable MtdObtenerModulosConProgreso(int idUsuario)
         {
             DataTable dtModulos = new DataTable();
@@ -246,7 +246,7 @@ namespace SeñaWeb.Datos
             {
                 try
                 {
-                    // Consulta modificada para asegurar que se muestren todos los módulos
+                    
                     string query = @"
                 SELECT 
                     m.idModulo, 
@@ -304,7 +304,7 @@ namespace SeñaWeb.Datos
             return dtModulos;
         }
 
-        // Método para obtener módulos completados
+        
         public DataTable MtdObtenerModulosCompletados(int idUsuario)
         {
             DataTable dtModulosCompletados = new DataTable();

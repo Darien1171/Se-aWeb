@@ -10,37 +10,37 @@ namespace SeñaWeb.Logica
 {
     public class ClProgresoL
     {
-        // Método para registrar o actualizar el progreso de un usuario
+        
         public int MtdRegistrarProgreso(ClProgresoE oProgreso)
         {
             try
             {
-                // Validaciones adicionales
+                
                 if (oProgreso.idUsuario <= 0 || oProgreso.idSeña <= 0)
                 {
-                    return 0; // No se puede registrar con datos inválidos
+                    return 0; 
                 }
 
-                // Realizar la operación a través de la capa de datos
+                
                 ClProgresoD datosProgreso = new ClProgresoD();
                 return datosProgreso.MtdRegistrarProgreso(oProgreso);
             }
             catch (Exception ex)
             {
-                // Registrar el error para depuración
+                
                 System.Diagnostics.Debug.WriteLine("Error en MtdRegistrarProgreso (Lógica): " + ex.Message);
-                throw; // Re-lanzar para manejo en capa superior
+                throw; 
             }
         }
 
-        // Método para obtener el progreso de un usuario
+        
         public DataTable MtdObtenerProgresoUsuario(int idUsuario)
         {
             try
             {
                 if (idUsuario <= 0)
                 {
-                    return new DataTable(); // Retornar tabla vacía si el ID es inválido
+                    return new DataTable(); 
                 }
 
                 ClProgresoD datosProgreso = new ClProgresoD();
@@ -53,14 +53,14 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para obtener el progreso de un usuario en un módulo específico
+        
         public DataTable MtdObtenerProgresoModulo(int idUsuario, int idModulo)
         {
             try
             {
                 if (idUsuario <= 0 || idModulo <= 0)
                 {
-                    return new DataTable(); // Retornar tabla vacía si los IDs son inválidos
+                    return new DataTable(); 
                 }
 
                 ClProgresoD datosProgreso = new ClProgresoD();
@@ -73,14 +73,14 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para contar señas vistas por el usuario
+        
         public int MtdContarSenasVistas(int idUsuario)
         {
             try
             {
                 if (idUsuario <= 0)
                 {
-                    return 0; // Retornar 0 si el ID es inválido
+                    return 0; 
                 }
 
                 ClProgresoD datosProgreso = new ClProgresoD();
@@ -93,20 +93,20 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para obtener módulos con porcentaje de completado
+        
         public DataTable MtdObtenerModulosConProgreso(int idUsuario)
         {
             try
             {
                 if (idUsuario <= 0)
                 {
-                    return new DataTable(); // Retornar tabla vacía si el ID es inválido
+                    return new DataTable(); 
                 }
 
                 ClProgresoD datosProgreso = new ClProgresoD();
                 DataTable dtModulos = datosProgreso.MtdObtenerModulosConProgreso(idUsuario);
 
-                // Procesar resultados para asegurar formato correcto
+                
                 foreach (DataRow row in dtModulos.Rows)
                 {
                     if (row["porcentajeCompletado"] != DBNull.Value)
@@ -129,14 +129,14 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para obtener módulos completados
+        
         public DataTable MtdObtenerModulosCompletados(int idUsuario)
         {
             try
             {
                 if (idUsuario <= 0)
                 {
-                    return new DataTable(); // Retornar tabla vacía si el ID es inválido
+                    return new DataTable(); 
                 }
 
                 ClProgresoD datosProgreso = new ClProgresoD();
@@ -149,7 +149,7 @@ namespace SeñaWeb.Logica
             }
         }
 
-        // Método para obtener el resumen de progreso
+        
         public DataTable MtdObtenerResumenProgreso(int idUsuario)
         {
             try
@@ -162,29 +162,29 @@ namespace SeñaWeb.Logica
                 dtResumen.Columns.Add("modulosCompletados", typeof(int));
                 dtResumen.Columns.Add("porcentajeModulos", typeof(int));
 
-                // Obtener el total de señas
+                
                 ClSeñaL logicaSena = new ClSeñaL();
                 int totalSenas = logicaSena.MtdContarSenas();
 
-                // Obtener señas vistas por el usuario
+                
                 ClProgresoD datosProgreso = new ClProgresoD();
                 int senasVistas = datosProgreso.MtdContarSenasVistas(idUsuario);
 
-                // Calcular porcentaje de señas vistas
+                
                 int porcentajeSenas = totalSenas > 0 ? (senasVistas * 100) / totalSenas : 0;
 
-                // Obtener el total de módulos
+                
                 ClModuloL logicaModulo = new ClModuloL();
                 int totalModulos = logicaModulo.MtdContarModulos();
 
-                // Obtener módulos completados
+                
                 DataTable dtModulosCompletados = datosProgreso.MtdObtenerModulosCompletados(idUsuario);
                 int modulosCompletados = dtModulosCompletados.Rows.Count;
 
-                // Calcular porcentaje de módulos completados
+                
                 int porcentajeModulos = totalModulos > 0 ? (modulosCompletados * 100) / totalModulos : 0;
 
-                // Añadir fila con los datos
+                
                 DataRow row = dtResumen.NewRow();
                 row["totalSenas"] = totalSenas;
                 row["senasVistas"] = senasVistas;
